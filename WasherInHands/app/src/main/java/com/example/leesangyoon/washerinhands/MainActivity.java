@@ -1,15 +1,13 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TabHost;
 
 import java.util.List;
 import java.util.Vector;
@@ -20,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
 
 
         List<Fragment> fragments = new Vector<>();
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager pager = (ViewPager)findViewById(R.id.mainPager);
 
         pager.setAdapter(adapter);
+
 
         final ActionBar actionBar = getSupportActionBar();
 
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-        
+
         actionBar.addTab(actionBar.newTab().setText("HOME").setTabListener(tabListener));
         actionBar.addTab(actionBar.newTab().setText("GROUP").setTabListener(tabListener));
         actionBar.addTab(actionBar.newTab().setText("PROFILE").setTabListener(tabListener));
@@ -68,5 +69,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        pager.setCurrentItem(intent.getIntExtra("fragNum", 0));
+
     }
+
 }

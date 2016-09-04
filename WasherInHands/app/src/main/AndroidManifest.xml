@@ -17,8 +17,13 @@
         </activity>
         <activity android:name=".Login"></activity>
         <activity android:name=".Register"></activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".ShowGroup"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".JoinGroup"></activity>
+        <activity android:name=".EditPassword"></activity>
+        <activity android:name=".EditArticle"></activity>
+        <activity android:name=".ShowArticle"></activity>
+        <activity android:name=".CreateGroup"></activity>
     </application>
 
 </manifest>

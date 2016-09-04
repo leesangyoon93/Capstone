@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 /**
  * Created by daddyslab on 2016. 9. 4..
  */
-public class frag_Home extends Fragment {
+public class frag_Chat extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         if(container == null)
             return null;
 
-        return inflater.inflate(R.layout.fragment_groupinfo, container, false);
+        return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 }

@@ -20,4 +20,9 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent(Login.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void notRegistered(View view) {
+        Intent intent = new Intent(Login.this, Register.class);
+        startActivity(intent);
+    }
 }

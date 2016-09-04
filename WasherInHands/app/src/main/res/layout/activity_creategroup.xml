@@ -6,15 +6,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="frag profile"
-        android:id="@+id/textView4"
+        android:text="create group"
+        android:id="@+id/textView3"
         android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호변경"
-        android:id="@+id/btn_pwchange"
+        android:text="완료"
+        android:id="@+id/btn_save"
         android:layout_gravity="center_horizontal"
-        android:onClick="changePassword"/>
+        android:onClick="Create"/>
+
 </LinearLayout>

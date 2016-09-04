@@ -9,4 +9,22 @@
         android:text="frag group"
         android:id="@+id/textView6"
         android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="아주대용지관"
+        android:id="@+id/btn_showGroup"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="그룹가입"
+        android:id="@+id/btn_addGroup"
+        android:layout_gravity="center_horizontal"
+        />
+
+
 </LinearLayout>
