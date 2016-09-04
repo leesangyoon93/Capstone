@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        TabHost tabHost = new TabHost()
-//        tabHost.
 
         List<Fragment> fragments = new Vector<>();
         fragments.add(Fragment.instantiate(this, frag_Home.class.getName()));
@@ -37,15 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
 
-//        actionBar.setDisplayShowCustomEnabled(true);
-//        actionBar.setDisplayHomeAsUpEnabled(false);
-//        actionBar.setDisplayShowTitleEnabled(false);
-//
-//        View mCustomView = LayoutInflater.from(this).inflate(R.layout.actionbar_main, null);
-//        actionBar.setCustomView(mCustomView);
-//
-//        Toolbar parent = (Toolbar)mCustomView.getParent();
-//        parent.setContentInsetsAbsolute(0,0);
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -67,14 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-
-
+        
         actionBar.addTab(actionBar.newTab().setText("HOME").setTabListener(tabListener));
         actionBar.addTab(actionBar.newTab().setText("GROUP").setTabListener(tabListener));
         actionBar.addTab(actionBar.newTab().setText("PROFILE").setTabListener(tabListener));
         actionBar.addTab(actionBar.newTab().setText("SETTING").setTabListener(tabListener));
-
-
 
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             public void onPageSelected(int position) {
