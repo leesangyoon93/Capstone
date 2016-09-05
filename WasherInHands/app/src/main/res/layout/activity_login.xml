@@ -6,21 +6,53 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login view"
+        android:text="아이디"
+        android:id="@+id/text_username"
+        android:layout_gravity="center_horizontal"
+        android:textSize="40dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/input_loginId"
+        android:hint="아이디" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="비밀번호"
         android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textSize="40dp" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그인"
-        android:id="@+id/submit_login"
-        android:onClick="main"/>
+        android:id="@+id/input_loginPassword"
+        android:autoText="true"
+        android:hint="비밀번호"
+        android:password="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="아직 회원이 아니세요오오오오?"
-        android:id="@+id/notRegistered"
-        android:onClick="notRegistered"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그인"
+            android:id="@+id/submit_login"
+            android:layout_gravity="center_vertical"
+            android:gravity="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="아직 회원이 아니세요오오오오?"
+            android:id="@+id/notRegistered"
+            android:onClick="notRegistered"
+            android:layout_gravity="center_vertical"
+            android:gravity="center" />
+    </LinearLayout>
 </LinearLayout>
