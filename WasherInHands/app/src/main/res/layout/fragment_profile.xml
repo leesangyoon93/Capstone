@@ -12,6 +12,13 @@
         android:textSize="50dp" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/test_userid"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profile_userId"
@@ -38,7 +45,7 @@
             android:text="비밀번호변경"
             android:id="@+id/btn_pwchange"
             android:layout_gravity="center_horizontal"
-            android:onClick="changePassword"/>
+            />
 
         <Button
             android:layout_width="wrap_content"

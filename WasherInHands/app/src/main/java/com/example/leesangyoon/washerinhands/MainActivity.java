@@ -1,19 +1,28 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences userSession;
+
+    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        userSession = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+
+        String userId = userSession.getString("userId", "");
+        if(!userSession.contains("userName")) {
+            SharedPreferences.Editor editor = userSession.edit();
+            User user = new User();
+            user = user.getUserById(userId);
+            editor.putString("userName", user.getUserName());
+            editor.commit();
+        }
 
         List<Fragment> fragments = new Vector<>();
         fragments.add(Fragment.instantiate(this, frag_Home.class.getName()));

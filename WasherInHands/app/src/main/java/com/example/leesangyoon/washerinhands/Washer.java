@@ -21,6 +21,7 @@ public class Washer extends SugarRecord {
 
     public void Washer(WasherRoom washerRoom, float x, float y) {
         this.washerRoom = washerRoom;
+        this.module = "test";
         this.runTime = 0;
         this.isTrouble = false;
         this.x = x;
