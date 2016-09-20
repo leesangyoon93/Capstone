@@ -20,33 +20,25 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class frag_GroupInfo extends Fragment {
 
-    SharedPreferences currentRoom, userSession;
     boolean isHost;
     // 로그인된 사용자 가져오고 현재방 가져와서 현재방의 호스트랑 같으면 참으로
     // 삭제 누르면 없어지게
     TextView roomName;
 
-    WasherRoom washerRoom = new WasherRoom();
-    User user = new User();
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
-        currentRoom = getActivity().getSharedPreferences("CurrentRoom", MODE_PRIVATE);
-        userSession = getActivity().getSharedPreferences("UserSession", MODE_PRIVATE);
 
         View root = inflater.inflate(R.layout.fragment_groupinfo, container, false);
         Button editGroup = (Button)root.findViewById(R.id.btn_editGroup);
         Button deleteGroup = (Button)root.findViewById(R.id.btn_deleteGroup);
         roomName = (TextView)root.findViewById(R.id.text_groupInfo_name);
 
-        roomName.setText(currentRoom.getString("roomName", ""));
 
-        washerRoom = washerRoom.getWasherRoomByName(currentRoom.getString("roomName", ""));
-        user = user.getUserById(userSession.getString("userId", ""));
-
+/*
         if(washerRoom.get_host().getClass().equals(user.getClass()))
             isHost = true;
         else
             isHost = false;
+*/
 
         if(isHost) {
             editGroup.setVisibility(root.VISIBLE);
@@ -55,7 +47,7 @@ public class frag_GroupInfo extends Fragment {
             editGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), CreateGroup.class);
+                    Intent intent = new Intent(getActivity(), EditGroup.class);
                     startActivity(intent);
                 }
             });
@@ -63,9 +55,7 @@ public class frag_GroupInfo extends Fragment {
             deleteGroup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    user.showWaserRoom();
-                    //user.deleteWasherRoom(washerRoom);
-                    //washerRoom.delete();
+
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("fragNum", 1);
                     startActivity(intent);

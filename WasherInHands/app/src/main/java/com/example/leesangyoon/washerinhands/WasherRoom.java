@@ -2,69 +2,68 @@ package com.example.leesangyoon.washerinhands;
 
 import android.util.Log;
 
-import com.orm.SugarRecord;
-import com.orm.dsl.Table;
-import com.orm.dsl.Unique;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by daddyslab on 2016. 9. 5..
  */
 
-public class WasherRoom extends SugarRecord {
-    @Unique
+public class WasherRoom {
+
+    int id;
     User _host;
     ArrayList<User> members = new ArrayList<User>();
     String roomName;
     String address;
 
-    public WasherRoom() {}
+    private WasherRoom() {}
 
-    @Override
-    public Long getId() {
-        return super.getId();
+    private static class Singleton {
+        private static final WasherRoom washerRoom = new WasherRoom();
     }
 
-    public WasherRoom(User host, String roomName, String address) {
-        this._host = host;
-        this.roomName = roomName;
-        this.address = address;
+    public static WasherRoom getInstance () {
+        Log.e("development","create singleton instance : WasherRoom");
+        return Singleton.washerRoom;
     }
 
-    public void addMember(User user) {
-        this.members.add(user);
+    public int getId() {
+        return id;
     }
 
-    public boolean is_existed(String name) {
-        WasherRoom washerRoom = getWasherRoomByName(name);
-        if(washerRoom == null)
-            return false;
-        else
-            return true;
+    public User get_host() {
+        return _host;
     }
 
-    WasherRoom getWasherRoomByName(String name) {
-        List<WasherRoom> washerRooms = WasherRoom.find(WasherRoom.class, "ROOM_NAME = ?", name);
-        if(washerRooms.isEmpty())
-            return null;
-        return washerRooms.get(0);
+    public ArrayList<User> getMembers() {
+        return members;
     }
 
     public String getRoomName() {
-        return this.roomName;
+        return roomName;
     }
 
     public String getAddress() {
-        return this.address;
+        return address;
     }
 
-    ArrayList<User> getMembers() {
-        return this.members;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    User get_host() {
-        return this._host;
+    public void set_host(User _host) {
+        this._host = _host;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void addMembers(User user){
+        members.add(user);
     }
 }

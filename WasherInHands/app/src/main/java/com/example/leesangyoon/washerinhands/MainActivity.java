@@ -20,8 +20,6 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences userSession;
-
     TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-
-        userSession = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
-
-        String userId = userSession.getString("userId", "");
-        if(!userSession.contains("userName")) {
-            SharedPreferences.Editor editor = userSession.edit();
-            User user = new User();
-            user = user.getUserById(userId);
-            editor.putString("userName", user.getUserName());
-            editor.commit();
-        }
 
         List<Fragment> fragments = new Vector<>();
         fragments.add(Fragment.instantiate(this, frag_Home.class.getName()));

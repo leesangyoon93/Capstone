@@ -1,31 +1,76 @@
 package com.example.leesangyoon.washerinhands;
 
-import com.orm.SugarRecord;
-import com.orm.dsl.Table;
-import com.orm.dsl.Unique;
+import android.util.Log;
 
 /**
  * Created by daddyslab on 2016. 9. 5..
  */
-@Table
-public class Washer extends SugarRecord {
-    @Unique
+
+public class Washer {
+
     WasherRoom washerRoom;
     String module;
     int runTime;
     boolean isTrouble;
-    float x;
-    float y;
+    double x;
+    double y;
 
-    public void Wahser() {}
+    private Washer() {}
 
-    public void Washer(WasherRoom washerRoom, float x, float y) {
-        this.washerRoom = washerRoom;
-        this.module = "test";
-        this.runTime = 0;
-        this.isTrouble = false;
-        this.x = x;
-        this.y = y;
+    private static class Singleton {
+        private static final Washer washer = new Washer();
     }
 
+    public static Washer getInstance () {
+        Log.e("development","create singleton instance : Washer");
+        return Singleton.washer;
+    }
+
+    public WasherRoom getWasherRoom() {
+        return washerRoom;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public int getRunTime() {
+        return runTime;
+    }
+
+    public boolean isTrouble() {
+        return isTrouble;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setWasherRoom(WasherRoom washerRoom) {
+        this.washerRoom = washerRoom;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+    public void setRunTime(int runTime) {
+        this.runTime = runTime;
+    }
+
+    public void setTrouble(boolean trouble) {
+        isTrouble = trouble;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
 }

@@ -7,24 +7,25 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 /**
- * Created by daddyslab on 2016. 9. 4..
+ * Created by Administrator on 2016-09-15.
  */
-public class PagerAdapter extends FragmentPagerAdapter {
+public class imagePagerAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> fragments;
+    private int pageCount = 0;
 
-    public PagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+    public imagePagerAdapter(FragmentManager fm, int pageCount) {
         super(fm);
-        this.fragments = fragments;
+        this.pageCount =  pageCount;
     }
 
     @Override
     public android.support.v4.app.Fragment getItem(int position) {
-        return fragments.get(position);
+        return frag_image.create(position);
     }
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return pageCount;
     }
+
 }
