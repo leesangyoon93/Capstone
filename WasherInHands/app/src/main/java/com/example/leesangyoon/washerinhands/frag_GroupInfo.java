@@ -2,6 +2,8 @@ package com.example.leesangyoon.washerinhands;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -49,15 +51,9 @@ public class frag_GroupInfo extends Fragment {
 
     List<Machine> machines = new ArrayList<Machine>();
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
+    ServerThread serverThread = null;
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // 서버한테 정보 주기적으로 계속 받아와야해
-                Log.e("sssss","Thread Test");
-            }
-        }).start();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
 
         root = inflater.inflate(R.layout.fragment_groupinfo, container, false);
         layout_host = (LinearLayout)root.findViewById(R.id.layout_btn_host);
@@ -84,6 +80,8 @@ public class frag_GroupInfo extends Fragment {
             e.printStackTrace();
         }
 
+        serverThread = new ServerThread();
+        serverThread.start();
 
         isMainText.setVisibility(root.GONE);
         layout_host.setVisibility(root.GONE);
@@ -121,6 +119,17 @@ public class frag_GroupInfo extends Fragment {
 
                     if(isHost) {
                         layout_host.setVisibility(root.VISIBLE);
+
+                        mainGroup.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    setMainToServer();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
                         editGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -271,16 +280,25 @@ public class frag_GroupInfo extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
                 machines.clear();
-
+                Message msg = handler.obtainMessage();
                 try {
                     for (int i = 0; i < response.length(); i++) {
                         Machine machine = new Machine(response.optJSONObject(i).getString("module"),
-                                Double.parseDouble(response.optJSONObject(i).getString("x")), Double.parseDouble(response.optJSONObject(i).getString("y")));
+                                Double.parseDouble(response.optJSONObject(i).getString("x")), Double.parseDouble(response.optJSONObject(i).getString("y")),
+                                Integer.parseInt(response.optJSONObject(i).getString("runTime")), Boolean.parseBoolean(response.optJSONObject(i).getString("isTrouble")),
+                                Boolean.parseBoolean(response.optJSONObject(i).getString("isWorking")));
                         machines.add(machine);
                     }
                     canvasview.setMachines(machines);
+
+                    //서버에서 받아오는게 성공한다면 핸들에 1을 보낸다
+                    msg.arg1 = 1;
+                    handler.sendMessage(msg);
+
                 }catch(JSONException e){
                     e.printStackTrace();
+                    msg.arg1=0;
+                    handler.sendMessage(msg);
                 }
 
             }
@@ -293,5 +311,55 @@ public class frag_GroupInfo extends Fragment {
 
         // Adding request to request queue
         volley.getInstance().addToRequestQueue(req);
+    }
+
+    Handler handler = new Handler(new Handler.Callback(){
+
+        @Override
+        public boolean handleMessage(Message msg) {
+
+            switch(msg.arg1){
+                case 0:
+                    Toast.makeText(getActivity(),"서버와의 연결이 원할하지 않습니다.",Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    canvasview.setMachines(machines);
+                    Log.e("sssss","쓰레드 성공!!!!");
+                    break;
+            }
+
+            return true;
+        }
+    });
+
+
+    class ServerThread extends Thread implements Runnable{
+
+        private boolean isPlay = false;
+
+        public ServerThread() {
+            isPlay = true;
+        }
+
+        public void isThreadState(boolean isPlay) {
+            this.isPlay = isPlay;
+        }
+
+        public void stopThread() {
+            this.isPlay = false;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            while(isPlay) {
+                try {
+                    Thread.sleep(5 * 1000);
+                    getWasherToServer();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

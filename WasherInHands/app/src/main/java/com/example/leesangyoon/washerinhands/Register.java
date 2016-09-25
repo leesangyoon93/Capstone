@@ -125,4 +125,5 @@ public class Register extends AppCompatActivity {
                 });
         volley.getInstance().addToRequestQueue(req);
     }
+
 }

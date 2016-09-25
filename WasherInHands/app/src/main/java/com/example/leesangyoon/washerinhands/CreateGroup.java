@@ -100,4 +100,12 @@ public class CreateGroup extends AppCompatActivity {
                 });
         volley.getInstance().addToRequestQueue(req);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(CreateGroup.this, MainActivity.class);
+        intent.putExtra("fragNum",1);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 }

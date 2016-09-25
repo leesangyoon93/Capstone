@@ -1,13 +1,19 @@
 package com.example.leesangyoon.washerinhands;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +30,6 @@ public class canvasView_onlyShow extends View {
     float sy, my, ey;
 
     int MACHINE_SIZE;
-    int REMOVE_SIZE;
-    final static float CENTERX = 40;
-    final static float CENTERY = 40;
-    final static int MAX_X = 1000;
-    final static int MAX_Y = 1000;
-
     int canvasWidth = 0;
     int canvasHeight = 0;
 
@@ -108,6 +108,41 @@ public class canvasView_onlyShow extends View {
             sx = event.getX();
             sy = event.getY();
 
+            for(int i=machines.size()-1;i>=0;i--){
+                if(sx - settingMachine.getAlpha()>machines.get(i).getX() && sx - settingMachine.getAlpha()<machines.get(i).getX()+MACHINE_SIZE
+                        && sy - settingMachine.getBeta() >machines.get(i).getY() && sy - settingMachine.getBeta() < machines.get(i).getY()+MACHINE_SIZE){
+
+                    String working;
+                    if(machines.get(i).getWorking()){
+                        working = "작동중";
+                    } else{
+                        working = "사용 가능";
+                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("세탁기 상세정보")
+                            .setMessage("세탁방: " + WasherRoom.getInstance().getRoomName() + "\n" +
+                                    "세탁기 번호: " + i+1 + "번 세탁기\n\n" +
+                                    "모듈ID: " + machines.get(i).getModule() + "\n" +
+                                    "경과시간: " + machines.get(i).getRuntTime() + "\n" +
+                                    "작동: " + working + "\n")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // yes 버튼 누르면
+                                }
+                            });
+                    AlertDialog dialog = builder.show();
+                    TextView dialogMessage = (TextView)dialog.findViewById(android.R.id.message);
+//                    TextView dialogTitle = (TextView)dialog.findViewById(android.R.id.title);
+//                    dialogTitle.setGravity(Gravity.CENTER);
+//                    dialogTitle.setTextSize(30);
+//                    dialogTitle.setTextColor(Color.GREEN);
+                    dialogMessage.setGravity(Gravity.CENTER);
+                    dialogMessage.setTextColor(Color.BLUE);
+                    break;
+                }
+            }
+
             invalidate();
         } else if (action == MotionEvent.ACTION_MOVE) {
             mx = event.getX();
@@ -129,6 +164,28 @@ public class canvasView_onlyShow extends View {
 
     public void setMachines(List<Machine> machines) {
         this.machines = machines;
+        double minX=-1500;
+        double minY=-1500;
+
+        settingMachine.initAlphaBeta();
+
+        for(int i=0;i<machines.size();i++){
+
+            if(i==0){
+                minX = machines.get(i).getX();
+                minY = machines.get(i).getY();
+            } else{
+                if(minX >= machines.get(i).getX()){
+                      minX = machines.get(i).getX();
+                }
+                if(minY >= machines.get(i).getY()){
+                    minY = machines.get(i).getY();
+                }
+            }
+        }
+
+        settingMachine.addAlpha(-minX);
+        settingMachine.addBeta(-minY);
         invalidate();
     }
 

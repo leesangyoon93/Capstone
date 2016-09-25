@@ -82,4 +82,12 @@ public class ShowGroup extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ShowGroup.this, MainActivity.class);
+        intent.putExtra("fragNum",1);
+        startActivity(intent);
+
+        super.onBackPressed();
+    }
 }

@@ -34,12 +34,12 @@ public class frag_Group extends Fragment implements AdapterView.OnItemClickListe
     boolean isAdmin = User.getInstance().getAdmin();
     Button addGroup;
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
 
         View root = inflater.inflate(R.layout.fragment_group, container, false);
 
         washerRooms.clear();
-        int token=0;
         try {
             showJoinedGroupToServer();
         } catch (Exception e) {

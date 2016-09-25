@@ -197,4 +197,14 @@ public class JoinGroup extends AppCompatActivity implements AdapterView.OnItemCl
                 });
         volley.getInstance().addToRequestQueue(req);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(JoinGroup.this, MainActivity.class);
+        intent.putExtra("fragNum",1);
+        startActivity(intent);
+
+        super.onBackPressed();
+    }
 }

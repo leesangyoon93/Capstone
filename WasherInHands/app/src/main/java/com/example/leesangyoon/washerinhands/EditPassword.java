@@ -103,4 +103,9 @@ public class EditPassword extends AppCompatActivity {
 
         volley.getInstance().addToRequestQueue(req);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

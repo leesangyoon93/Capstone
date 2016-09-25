@@ -16,15 +16,16 @@ import java.util.Vector;
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
+    BackPressCloseHandler backPressCloseHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.e("ssss","뭐가문제1");
-        Intent intent = getIntent();
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
-        Log.e("ssss","뭐가문제2");
+        Intent intent = getIntent();
 
         List<Fragment> fragments = new Vector<>();
         fragments.add(Fragment.instantiate(this, frag_Home.class.getName()));
@@ -77,4 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
 }

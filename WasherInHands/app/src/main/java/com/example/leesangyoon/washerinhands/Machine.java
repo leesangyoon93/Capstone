@@ -14,6 +14,7 @@ public class Machine {
     private boolean isTrouble;
     private boolean movingMode;
     private boolean isWorking;
+    private int runtTime;
     static private int MACHINE_SIZE;
     static private int CANVAS_WIDTH;
     static private int CANVAS_HEIGHT;
@@ -23,13 +24,23 @@ public class Machine {
 
     }
 
-    public Machine(String sensorID, double centerX, double centerY){
+    public Machine(String sensorID, double centerX, double centerY, int runtTime, boolean isTrouble, boolean isWorking){
 
-        this.size = size;
         this.module = sensorID;
         this.centerX = centerX;
         this.centerY = centerY;
-        this.isTrouble = true;
+        this.runtTime = runtTime;
+        this.isTrouble = isTrouble;
+        this.isWorking = isWorking;
+        this.movingMode = false;
+    }
+
+
+    public Machine(String sensorID, double centerX, double centerY){
+
+        this.module = sensorID;
+        this.centerX = centerX;
+        this.centerY = centerY;
         this.movingMode = false;
     }
 
@@ -136,6 +147,8 @@ public class Machine {
     public boolean getWorking(){
         return this.isWorking;
     }
+
+    public int getRuntTime(){ return this.runtTime;}
 
     public double getAlpha(){
         return this.alpha;

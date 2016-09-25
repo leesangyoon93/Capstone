@@ -321,4 +321,10 @@ public class EditGroup extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(EditGroup.this, ShowGroup.class);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 }

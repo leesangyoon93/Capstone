@@ -211,7 +211,7 @@ public class canvasView extends View {
     }
 
     public void addMachine(String sensorID){
-        Machine machine = new Machine(sensorID,CENTERX-settingMachine.getAlpha(), CENTERY-settingMachine.getBeta());
+        Machine machine = new Machine(sensorID,CENTERX-settingMachine.getAlpha(), CENTERY-settingMachine.getBeta(),0,false,false);
         machines.add(machine);
 
         invalidate();
@@ -235,8 +235,29 @@ public class canvasView extends View {
     }
 
     public void setMachines(List<Machine> machines){
-        Log.e("sss",Integer.toString(machines.size()));
         this.machines = machines;
+        double minX=-1500;
+        double minY=-1500;
+
+        settingMachine.initAlphaBeta();
+
+        for(int i=0;i<machines.size();i++){
+
+            if(i==0){
+                minX = machines.get(i).getX();
+                minY = machines.get(i).getY();
+            } else{
+                if(minX >= machines.get(i).getX()){
+                    minX = machines.get(i).getX();
+                }
+                if(minY >= machines.get(i).getY()){
+                    minY = machines.get(i).getY();
+                }
+            }
+        }
+
+        settingMachine.addAlpha(-minX);
+        settingMachine.addBeta(-minY);
         invalidate();
     }
 }
