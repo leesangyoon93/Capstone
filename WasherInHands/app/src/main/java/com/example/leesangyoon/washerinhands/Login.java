@@ -3,7 +3,6 @@ package com.example.leesangyoon.washerinhands;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -41,6 +40,8 @@ public class Login extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate((savedInstanceState));
         setContentView(R.layout.activity_login);
+
+        Log.e("ssss","로그인");
 
         loginButton = (Button) findViewById(R.id.submit_login);
         notRegisterButton = (Button) findViewById(R.id.notRegistered);
@@ -92,21 +93,27 @@ public class Login extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
 
-                    if (response.getClass().getName() == "String") {
-                        if (response.getString("result") == "fail") {
-                            //아이디 또는 비밀번호가 잘못되었습니다
-                            Toast.makeText(Login.this, "아이디가 옳바르지 않습니다.", Toast.LENGTH_SHORT).show();
+                    if (response.toString().contains("result")) {
+                        if (response.getString("result").equals("fail")) {
+                            Toast.makeText(Login.this, "알 수 없는 에러가 발생합니다.", Toast.LENGTH_SHORT).show();
+                        }else if(response.getString("result").equals("failId")){
+                            Toast.makeText(Login.this, "존재하지 않는 ID입니다.", Toast.LENGTH_SHORT).show();
+                        }else if(response.getString("result").equals("failPw")){
+                            Toast.makeText(Login.this, "비밀번호가 옳바르지 않습니다.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        SharedPreferences.Editor editor = userSession.edit();
-                        editor.putString("isLogin", "true");
-                        editor.commit();
 
                         //response받아와서 user객체에 넘김
                         User.getInstance().setUserId(response.getString("userId"));
                         User.getInstance().setPassword(response.getString("password"));
                         User.getInstance().setUserName(response.getString("userName"));
                         User.getInstance().setAdmin(response.getBoolean("isAdmin"));
+                        User.getInstance().setMainRoomName(response.getString("mainRoomName"));
+
+
+                        SharedPreferences.Editor editor = userSession.edit();
+                        editor.putString("userId", User.getInstance().getUserId());
+                        editor.commit();
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         startActivity(intent);
@@ -121,7 +128,6 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.d("development", "Error: " + error.getMessage());
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

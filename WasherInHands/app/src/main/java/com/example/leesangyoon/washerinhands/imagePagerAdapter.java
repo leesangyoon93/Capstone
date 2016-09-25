@@ -1,10 +1,7 @@
 package com.example.leesangyoon.washerinhands;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2016-09-15.

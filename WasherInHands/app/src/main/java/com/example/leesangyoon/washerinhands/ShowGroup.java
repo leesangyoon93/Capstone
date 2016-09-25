@@ -7,10 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by daddyslab on 2016. 9. 4..
@@ -85,4 +81,5 @@ public class ShowGroup extends AppCompatActivity {
         fragmentReplace(mCurrentFragmentIndex);
         return super.onOptionsItemSelected(item);
     }
+
 }

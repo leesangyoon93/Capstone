@@ -3,7 +3,6 @@ package com.example.leesangyoon.washerinhands;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by daddyslab on 2016. 9. 5..
@@ -11,10 +10,11 @@ import java.util.List;
 
 public class User {
 
+    private String mainRoomName=null;
     private String userId=null;
     private String password=null;
     private String userName=null;
-    private boolean isAdmin=false;
+    private boolean isAdmin;
     private ArrayList<WasherRoom> washerRooms = new ArrayList<WasherRoom>();
 
     private User() {}
@@ -40,6 +40,10 @@ public class User {
         return this.password;
     }
 
+    public String getMainRoomName() {
+        return mainRoomName;
+    }
+
     public String getUserName() {
         return this.userName;
     }
@@ -61,10 +65,8 @@ public class User {
     }
 
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        this.isAdmin = admin;
     }
 
-    public void addWasherRoom(WasherRoom washerRoom) {
-        this.washerRooms.add(washerRoom);
-    }
+    public void setMainRoomName(String mainRoomName){ this.mainRoomName = mainRoomName;}
 }

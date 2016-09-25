@@ -9,7 +9,7 @@ public class Machine {
     static public double beta=0;
     private double centerX=0;
     private double centerY=0;
-    private String sensorID=null;
+    private String module=null;
     private int size = 15;
     private boolean isTrouble;
     private boolean movingMode;
@@ -26,7 +26,7 @@ public class Machine {
     public Machine(String sensorID, double centerX, double centerY){
 
         this.size = size;
-        this.sensorID = sensorID;
+        this.module = sensorID;
         this.centerX = centerX;
         this.centerY = centerY;
         this.isTrouble = true;
@@ -53,7 +53,7 @@ public class Machine {
     }
 
     public void setSensorID(String sensorID){
-        this.sensorID = sensorID;
+        this.module = sensorID;
     }
 
     public void setSize(int size){
@@ -117,8 +117,8 @@ public class Machine {
 
     }
 
-    public String getSensorID(){
-        return this.sensorID;
+    public String getModule(){
+        return this.module;
     }
 
     public int getSize(){

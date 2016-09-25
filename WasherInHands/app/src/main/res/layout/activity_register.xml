@@ -17,13 +17,15 @@
         android:text="아이디"
         android:id="@+id/textView15"
         android:layout_gravity="center_horizontal"
-        android:textSize="40dp" />
+        android:textSize="40dp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/input_registerUserId"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:lines="1"
+        android:maxLength="15" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,7 +40,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/input_registerPassword"
         android:inputType="textPassword"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:lines="1"
+        android:maxLength="15" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,7 +56,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/input_registerUserName"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:lines="1"
+        android:maxLength="15" />
 
     <Button
         android:layout_width="wrap_content"

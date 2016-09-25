@@ -22,21 +22,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
-
-
 /**
  * Created by daddyslab on 2016. 9. 4..
  */
 public class frag_Profile extends Fragment {
     Button changePassword = null;
     Button logoutButton = null;
-    TextView profileId, profileName, textView = null;
+    TextView profileId, profileName = null;
 
-    private String URL;
     SharedPreferences userSession;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
+        Log.e("ssss","제발");
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
         changePassword = (Button) root.findViewById(R.id.btn_pwchange);
@@ -55,6 +52,7 @@ public class frag_Profile extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getActivity(), EditPassword.class);
                 startActivity(intent);
             }
@@ -79,7 +77,7 @@ public class frag_Profile extends Fragment {
 
     private void logoutToServer() throws Exception {
 
-        URL = String.format("http://52.41.19.232/logout");
+        String URL = String.format("http://52.41.19.232/logout");
 
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
 
@@ -89,7 +87,7 @@ public class frag_Profile extends Fragment {
                     if (response.getString("result").equals("success")) {
 
                         SharedPreferences.Editor editor = userSession.edit();
-                        editor.putString("isLogin", "false");
+                        editor.clear();
                         editor.commit();
 
                         Intent intent = new Intent(getActivity(), Login.class);
@@ -108,11 +106,11 @@ public class frag_Profile extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("development", "Error: " + error.getMessage());
-                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
         // Adding request to request queue
         volley.getInstance().addToRequestQueue(req);
     }
+
 }

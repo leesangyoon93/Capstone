@@ -1,33 +1,21 @@
 package com.example.leesangyoon.washerinhands;
 
-import android.util.Log;
-
 /**
  * Created by daddyslab on 2016. 9. 5..
  */
 
 public class Washer {
 
-    WasherRoom washerRoom;
     String module;
     int runTime;
     boolean isTrouble;
     double x;
     double y;
 
-    private Washer() {}
-
-    private static class Singleton {
-        private static final Washer washer = new Washer();
-    }
-
-    public static Washer getInstance () {
-        Log.e("development","create singleton instance : Washer");
-        return Singleton.washer;
-    }
-
-    public WasherRoom getWasherRoom() {
-        return washerRoom;
+    public Washer(double x, double y, String module) {
+        this.x = x;
+        this.y = y;
+        this.module = module;
     }
 
     public String getModule() {
@@ -48,10 +36,6 @@ public class Washer {
 
     public double getY() {
         return y;
-    }
-
-    public void setWasherRoom(WasherRoom washerRoom) {
-        this.washerRoom = washerRoom;
     }
 
     public void setModule(String module) {

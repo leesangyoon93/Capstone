@@ -1,5 +1,3 @@
-//response 후 post연구
-
 
 package com.example.leesangyoon.washerinhands;
 
@@ -8,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,58 +72,6 @@ public class Register extends AppCompatActivity {
 
 
     private void userinfoToServer(final String id, final String pw, final String name) throws Exception{
-/*
-        URL= String.format("http://52.41.19.232/register?userId=%s&passward=%s&userName=%s",
-                URLEncoder.encode(id, "utf-8"),URLEncoder.encode(pw, "utf-8"),URLEncoder.encode(name, "utf-8")
-        );
-
-
-
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,URL,null, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try{
-                    Log.e("sss","3: " + response.getString("result"));
-
-                    if(response.getString("result") == "fail") {
-                        //서버연결에 실패하였습니다.
-                        Toast.makeText(Register.this, "알 수 없는 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
-                    } else if(response.getString("result") == "overlap"){
-                        //중복된 아이디 입니다.
-                        Toast.makeText(Register.this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
-                    } else{
-                        SharedPreferences.Editor editor = userSession.edit();
-                        editor.putString("isLogin", "true");
-                        editor.commit();
-
-                        //response받아와서 user객체에 넘김
-                        User.getInstance().setUserId(response.getString("userId"));
-                        User.getInstance().setPassword(response.getString("password"));
-                        User.getInstance().setUserName(response.getString("userName"));
-                        User.getInstance().setAdmin(response.getBoolean("isAdmin"));
-
-                        Intent intent = new Intent(Register.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-
-
-                }catch(JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("development", "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Adding request to request queue
-        volley.getInstance().addToRequestQueue(req);*/
 
         Map<String, String> postParam= new HashMap<String, String>();
         postParam.put("userId", id);
@@ -140,25 +85,27 @@ public class Register extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try{
 
-                            if(response.getClass().getName() == "String"){
-                                if(response.getString("result") == "fail") {
+                            if(response.toString().contains("result")){
+                                if(response.getString("result").equals("fail")) {
                                     //서버연결에 실패하였습니다.
                                     Toast.makeText(Register.this, "알 수 없는 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
-                                } else if(response.getString("result") == "overlap"){
+                                } else if(response.getString("result").equals("overlap")){
                                     //중복된 아이디 입니다.
                                     Toast.makeText(Register.this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else{
-                                SharedPreferences.Editor editor = userSession.edit();
-                                editor.putString("isLogin", "true");
-                                editor.commit();
 
                                 //response받아와서 user객체에 넘김
                                 User.getInstance().setUserId(response.getString("userId"));
                                 User.getInstance().setPassword(response.getString("password"));
                                 User.getInstance().setUserName(response.getString("userName"));
                                 User.getInstance().setAdmin(response.getBoolean("isAdmin"));
+                                User.getInstance().setMainRoomName(response.getString("mainRoomName"));
+
+                                SharedPreferences.Editor editor = userSession.edit();
+                                editor.putString("userId", User.getInstance().getUserId());
+                                editor.commit();
 
                                 Intent intent = new Intent(Register.this, MainActivity.class);
                                 startActivity(intent);
@@ -174,7 +121,6 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.d("development", "Error: " + error.getMessage());
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
         volley.getInstance().addToRequestQueue(req);

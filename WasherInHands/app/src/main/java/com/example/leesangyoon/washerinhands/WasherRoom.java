@@ -2,17 +2,12 @@ package com.example.leesangyoon.washerinhands;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-
 /**
  * Created by daddyslab on 2016. 9. 5..
  */
 
 public class WasherRoom {
 
-    int id;
-    User _host;
-    ArrayList<User> members = new ArrayList<User>();
     String roomName;
     String address;
 
@@ -27,32 +22,12 @@ public class WasherRoom {
         return Singleton.washerRoom;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public User get_host() {
-        return _host;
-    }
-
-    public ArrayList<User> getMembers() {
-        return members;
-    }
-
     public String getRoomName() {
-        return roomName;
+        return this.roomName;
     }
 
     public String getAddress() {
-        return address;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void set_host(User _host) {
-        this._host = _host;
+        return this.address;
     }
 
     public void setRoomName(String roomName) {
@@ -63,7 +38,5 @@ public class WasherRoom {
         this.address = address;
     }
 
-    public void addMembers(User user){
-        members.add(user);
-    }
+
 }

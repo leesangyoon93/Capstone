@@ -6,16 +6,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="프로필"
+        android:text="아이디"
         android:id="@+id/textView4"
-        android:layout_gravity="center_horizontal"
-        android:textSize="50dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/test_userid"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -24,6 +16,13 @@
         android:id="@+id/profile_userId"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        android:id="@+id/test_userid"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="match_parent"

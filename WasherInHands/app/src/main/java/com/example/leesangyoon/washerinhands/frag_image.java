@@ -84,7 +84,4 @@ public class frag_image extends android.support.v4.app.Fragment {
         return root;
     }
 
-    public static int getFragSize(){
-        return position;
-    }
 }

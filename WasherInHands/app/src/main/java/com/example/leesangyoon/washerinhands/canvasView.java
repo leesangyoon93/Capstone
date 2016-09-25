@@ -4,24 +4,19 @@ package com.example.leesangyoon.washerinhands;
  * Created by Administrator on 2016-09-05.
  */
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Picture;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PictureDrawable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Canvas_view extends View {
+public class canvasView extends View {
 
     float sx,mx,ex;
     float sy,my,ey;
@@ -46,7 +41,7 @@ public class Canvas_view extends View {
     boolean movingMode=false;
     Machine settingMachine = new Machine();
 
-    public Canvas_view(Context c){
+    public canvasView(Context c){
         super(c);
 
         settingMachine.initAlphaBeta();
@@ -207,7 +202,6 @@ public class Canvas_view extends View {
 
             //세탁기 지우고 size 0이면 alpha,beta 0으로 만들기
 
-
             movingMode=false;
             onTrash=false;
             invalidate();
@@ -219,14 +213,13 @@ public class Canvas_view extends View {
     public void addMachine(String sensorID){
         Machine machine = new Machine(sensorID,CENTERX-settingMachine.getAlpha(), CENTERY-settingMachine.getBeta());
         machines.add(machine);
-        //객체추가 시키고
 
         invalidate();
     }
-
+/*
     public void removeMachine(Machine machine){
         for(int i=0; i<machines.size();i++){
-            if(machines.get(i).getSensorID() == machine.getSensorID()){
+            if(machines.get(i).getModule().equals(machine.getModule())){
                 machines.remove(i);
                 return;
             }
@@ -235,7 +228,7 @@ public class Canvas_view extends View {
             }
         }
         invalidate();
-    }
+    }*/
 
     public List<Machine> getMachines(){
         return machines;
@@ -244,6 +237,6 @@ public class Canvas_view extends View {
     public void setMachines(List<Machine> machines){
         Log.e("sss",Integer.toString(machines.size()));
         this.machines = machines;
-
+        invalidate();
     }
 }
