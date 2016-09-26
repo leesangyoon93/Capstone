@@ -2,12 +2,14 @@ package com.example.leesangyoon.washerinhands;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,11 +35,14 @@ public class canvasView_onlyShow extends View {
     int canvasWidth = 0;
     int canvasHeight = 0;
 
+    boolean isFirst;
+
     Machine settingMachine = new Machine();
 
     public canvasView_onlyShow(Context c) {
         super(c);
 
+        isFirst=true;
         settingMachine.initAlphaBeta();
 
         invalidate();
@@ -99,6 +104,8 @@ public class canvasView_onlyShow extends View {
         bitmaps.clear();
     }
 
+    int machineNum=1000;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -111,34 +118,7 @@ public class canvasView_onlyShow extends View {
             for(int i=machines.size()-1;i>=0;i--){
                 if(sx - settingMachine.getAlpha()>machines.get(i).getX() && sx - settingMachine.getAlpha()<machines.get(i).getX()+MACHINE_SIZE
                         && sy - settingMachine.getBeta() >machines.get(i).getY() && sy - settingMachine.getBeta() < machines.get(i).getY()+MACHINE_SIZE){
-
-                    String working;
-                    if(machines.get(i).getWorking()){
-                        working = "작동중";
-                    } else{
-                        working = "사용 가능";
-                    }
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("세탁기 상세정보")
-                            .setMessage("세탁방: " + WasherRoom.getInstance().getRoomName() + "\n" +
-                                    "세탁기 번호: " + i+1 + "번 세탁기\n\n" +
-                                    "모듈ID: " + machines.get(i).getModule() + "\n" +
-                                    "경과시간: " + machines.get(i).getRuntTime() + "\n" +
-                                    "작동: " + working + "\n")
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    // yes 버튼 누르면
-                                }
-                            });
-                    AlertDialog dialog = builder.show();
-                    TextView dialogMessage = (TextView)dialog.findViewById(android.R.id.message);
-//                    TextView dialogTitle = (TextView)dialog.findViewById(android.R.id.title);
-//                    dialogTitle.setGravity(Gravity.CENTER);
-//                    dialogTitle.setTextSize(30);
-//                    dialogTitle.setTextColor(Color.GREEN);
-                    dialogMessage.setGravity(Gravity.CENTER);
-                    dialogMessage.setTextColor(Color.BLUE);
+                    machineNum=i;
                     break;
                 }
             }
@@ -157,6 +137,40 @@ public class canvasView_onlyShow extends View {
         } else if (action == MotionEvent.ACTION_UP) {
             ex = event.getX();
             ey = event.getY();
+            if(machineNum!=1000){
+                if(ex - settingMachine.getAlpha()>machines.get(machineNum).getX() && ex - settingMachine.getAlpha()<machines.get(machineNum).getX()+MACHINE_SIZE
+                    && ey - settingMachine.getBeta() >machines.get(machineNum).getY() && ey - settingMachine.getBeta() < machines.get(machineNum).getY()+MACHINE_SIZE){
+
+                    String working;
+                    if(machines.get(machineNum).getWorking()){
+                        working = "작동중";
+                    } else{
+                        working = "사용 가능";
+                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("세탁기 상세정보")
+                            .setMessage("세탁방: " + WasherRoom.getInstance().getRoomName() + "\n" +
+                                    "세탁기 번호: " + machineNum+1 + "번 세탁기\n\n" +
+                                    "모듈ID: " + machines.get(machineNum).getModule() + "\n" +
+                                    "경과시간: " + machines.get(machineNum).getRuntTime() + "\n" +
+                                    "작동: " + working + "\n")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // yes 버튼 누르면
+                                }
+                            });
+                    AlertDialog dialog = builder.show();
+                    TextView dialogMessage = (TextView)dialog.findViewById(android.R.id.message);
+//                    TextView dialogTitle = (TextView)dialog.findViewById(android.R.id.title);
+//                    dialogTitle.setGravity(Gravity.CENTER);
+//                    dialogTitle.setTextSize(30);
+//                    dialogTitle.setTextColor(Color.GREEN);
+                    dialogMessage.setGravity(Gravity.CENTER);
+                    dialogMessage.setTextColor(Color.BLUE);
+
+                }
+            }
         }
 
         return true;
@@ -167,25 +181,30 @@ public class canvasView_onlyShow extends View {
         double minX=-1500;
         double minY=-1500;
 
-        settingMachine.initAlphaBeta();
+        if(isFirst) {
 
-        for(int i=0;i<machines.size();i++){
+            settingMachine.initAlphaBeta();
 
-            if(i==0){
-                minX = machines.get(i).getX();
-                minY = machines.get(i).getY();
-            } else{
-                if(minX >= machines.get(i).getX()){
-                      minX = machines.get(i).getX();
-                }
-                if(minY >= machines.get(i).getY()){
+            for (int i = 0; i < machines.size(); i++) {
+
+                if (i == 0) {
+                    minX = machines.get(i).getX();
                     minY = machines.get(i).getY();
+                } else {
+                    if (minX >= machines.get(i).getX()) {
+                        minX = machines.get(i).getX();
+                    }
+                    if (minY >= machines.get(i).getY()) {
+                        minY = machines.get(i).getY();
+                    }
                 }
             }
+
+            settingMachine.addAlpha(-minX);
+            settingMachine.addBeta(-minY);
+            isFirst=false;
         }
 
-        settingMachine.addAlpha(-minX);
-        settingMachine.addBeta(-minY);
         invalidate();
     }
 

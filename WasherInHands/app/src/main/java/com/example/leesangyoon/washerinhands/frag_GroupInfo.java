@@ -46,6 +46,9 @@ public class frag_GroupInfo extends Fragment {
     Button exitGroup;
     View root;
 
+    //alpha,beta 초기화 문제 때문에 존재하는 토큰값
+    int token=0;
+
     canvasView_onlyShow canvasview;
     LinearLayout canvasLayout;
 
@@ -72,12 +75,6 @@ public class frag_GroupInfo extends Fragment {
             canvasLayout.setVisibility(root.GONE);
         }else{
             canvasLayout.addView(canvasview);
-        }
-
-        try {
-            getWasherToServer();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         serverThread = new ServerThread();
@@ -289,7 +286,6 @@ public class frag_GroupInfo extends Fragment {
                                 Boolean.parseBoolean(response.optJSONObject(i).getString("isWorking")));
                         machines.add(machine);
                     }
-                    canvasview.setMachines(machines);
 
                     //서버에서 받아오는게 성공한다면 핸들에 1을 보낸다
                     msg.arg1 = 1;
@@ -319,6 +315,7 @@ public class frag_GroupInfo extends Fragment {
         public boolean handleMessage(Message msg) {
 
             switch(msg.arg1){
+
                 case 0:
                     Toast.makeText(getActivity(),"서버와의 연결이 원할하지 않습니다.",Toast.LENGTH_SHORT).show();
                     break;
@@ -361,5 +358,11 @@ public class frag_GroupInfo extends Fragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        serverThread.stopThread();
     }
 }

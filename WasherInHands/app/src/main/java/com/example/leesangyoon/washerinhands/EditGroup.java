@@ -226,7 +226,7 @@ public class EditGroup extends AppCompatActivity {
                                 Double.parseDouble(response.optJSONObject(i).getString("x")), Double.parseDouble(response.optJSONObject(i).getString("y")));
                         machines.add(machine);
                     }
-                    canvasview.setMachines(machines);
+                    canvasview.setMachines(machines,0);
                 }catch(JSONException e){
                     e.printStackTrace();
                 }

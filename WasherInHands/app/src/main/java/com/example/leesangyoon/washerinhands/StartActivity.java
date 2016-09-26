@@ -19,15 +19,13 @@ import org.json.JSONObject;
 
 import java.net.URLEncoder;
 
-// EditArticle,ShowArticle,fragArticle,fragHome
-// Login,Register,showGroup,StartActivity,fragGroup,fragProfile,JoinGroup,EditPassword
+// EditArticle,ShowArticle,fragArticle
+// Login,Register,showGroup,StartActivity,fragGroup,fragProfile,JoinGroup,EditPassword,fragHome
 
 //Article 리스트뷰 만들기
 //startActivity 밑에 동그란 바, 그림 이상하게 넘어가는거 해결
 //네트워크 잡힐때까지 기다려주기(progress bar)
 
-//세탁기에 누르면 정보띄우기
-//
 //게시판
 //채팅
 

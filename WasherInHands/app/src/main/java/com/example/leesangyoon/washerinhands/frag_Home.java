@@ -48,7 +48,6 @@ public class frag_Home extends Fragment {
     Button mainGroup;
     Button exitGroup;
 
-
     ServerThread serverThread = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
@@ -118,7 +117,7 @@ public class frag_Home extends Fragment {
                                 Boolean.parseBoolean(response.optJSONObject(i).getString("isWorking")));
                         machines.add(machine);
                     }
-                    canvasview.setMachines(machines);
+
                     //서버에서 받아오는게 성공한다면 핸들에 1을 보낸다
                     msg.arg1 = 1;
                     handler.sendMessage(msg);
@@ -211,7 +210,7 @@ public class frag_Home extends Fragment {
             super.run();
             while(isPlay) {
                 try {
-                    Thread.sleep(10 * 1000);
+                    Thread.sleep(5 * 1000);
                     getWasherToServer();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -220,5 +219,9 @@ public class frag_Home extends Fragment {
         }
     }
 
-
+    @Override
+    public void onStop(){
+        super.onStop();
+        serverThread.stopThread();
+    }
 }

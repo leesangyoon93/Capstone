@@ -234,12 +234,14 @@ public class canvasView extends View {
         return machines;
     }
 
-    public void setMachines(List<Machine> machines){
+    public void setMachines(List<Machine> machines, int token){
         this.machines = machines;
         double minX=-1500;
         double minY=-1500;
 
-        settingMachine.initAlphaBeta();
+        if(token == 0){
+            settingMachine.initAlphaBeta();
+        }
 
         for(int i=0;i<machines.size();i++){
 

@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="게시글 제목"
-            android:id="@+id/text_articleName"
+            android:id="@+id/text_title1"
             android:layout_gravity="right"
             android:layout_weight="10"
             android:layout_marginLeft="10dp"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="(댓글 수)"
-            android:id="@+id/text_commentCount"
+            android:id="@+id/text_commentCount1"
             android:layout_gravity="right"
             android:layout_weight="1"
             android:layout_toEndOf="@id/text_articleName"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="글쓴이"
-            android:id="@+id/text_writerName"
+            android:id="@+id/text_author1"
             android:layout_marginRight="10dp" />
 
         <TextView
@@ -55,15 +55,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="날짜"
-            android:id="@+id/text_articleDate"
+            android:id="@+id/text_articleDate1"
             android:layout_marginRight="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="조회수"
-            android:id="@+id/text_viewCount"
-            android:layout_marginRight="10dp" />
     </LinearLayout>
 </LinearLayout>

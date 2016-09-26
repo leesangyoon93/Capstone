@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
+
             }
         });
 

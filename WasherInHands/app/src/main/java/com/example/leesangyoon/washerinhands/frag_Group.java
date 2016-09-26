@@ -25,6 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by daddyslab on 2016. 9. 4..
  */
+
 public class frag_Group extends Fragment implements AdapterView.OnItemClickListener {
 
     ListView roomList;
