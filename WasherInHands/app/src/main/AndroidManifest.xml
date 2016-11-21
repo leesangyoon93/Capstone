@@ -3,6 +3,7 @@
     package="com.example.leesangyoon.washerinhands">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,24 +18,27 @@
         <meta-data android:name="QUERY_LOG" android:value="true" />
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.leesangyoon.washerinhands" />
 
-        <activity android:name=".StartActivity">
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"></activity>
         <activity android:name=".Register"></activity>
         <activity android:name=".ShowGroup"></activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".JoinGroup"></activity>
-        <activity android:name=".EditPassword"></activity>
-        <activity android:name=".EditArticle"></activity>
-        <activity android:name=".ShowArticle"></activity>
-        <activity android:name=".CreateGroup"></activity>
-        <activity android:name=".EditGroup"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".JoinGroup" android:label="그룹검색/가입"></activity>
+        <activity android:name=".EditPassword" android:label="비밀번호 변경"></activity>
+        <activity android:name=".EditArticle"
+                  android:windowSoftInputMode="adjustPan" android:label="글 작성/수정"
+            ></activity>
+        <activity android:name=".ShowArticle"
+                  android:windowSoftInputMode="stateHidden" android:label="글상세정보"
+            ></activity>
+        <activity android:name=".CreateGroup" android:label="세탁방생성"></activity>
+        <activity android:name=".EditGroup" android:label="세탁방수정"></activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

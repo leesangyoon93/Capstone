@@ -29,7 +29,7 @@ import java.net.URLEncoder;
 //게시판
 //채팅
 
-
+//게시판 싱글톤 객체
 
 /**
  * Created by daddyslab on 2016. 9. 4..
@@ -50,11 +50,11 @@ public class StartActivity extends AppCompatActivity {
         userSession = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
 
         if(userSession.contains("userId")){
-            try {
-                loginToServer();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                try {
+                    loginToServer();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
         }else{
             adapter = new imagePagerAdapter(getSupportFragmentManager(),4);
             final ViewPager pager = (ViewPager)findViewById(R.id.imagePagerView);

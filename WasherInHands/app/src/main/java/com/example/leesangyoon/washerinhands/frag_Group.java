@@ -41,6 +41,7 @@ public class frag_Group extends Fragment implements AdapterView.OnItemClickListe
         View root = inflater.inflate(R.layout.fragment_group, container, false);
 
         washerRooms.clear();
+
         try {
             showJoinedGroupToServer();
         } catch (Exception e) {

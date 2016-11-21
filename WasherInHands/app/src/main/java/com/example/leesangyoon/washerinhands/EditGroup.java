@@ -5,9 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,9 +38,6 @@ public class EditGroup extends AppCompatActivity {
 
     String SENSOR_ID;
     List<Machine> machines = new ArrayList<Machine>();
-    Button deleteGroup;
-    Button btn_saveWasherRoom;
-    Button btn_addMachine;
 
     canvasView canvasview;
     LinearLayout canvasLayout;
@@ -45,6 +45,12 @@ public class EditGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editgroup);
+
+        final ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
 
         canvasview = new canvasView(EditGroup.this);
         canvasLayout = (LinearLayout)findViewById(R.id.canvas_layout);
@@ -55,21 +61,28 @@ public class EditGroup extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        btn_addMachine = (Button)findViewById(R.id.add_Machine);
-        btn_saveWasherRoom = (Button)findViewById(R.id.save_washerRoom);
-        deleteGroup = (Button)findViewById(R.id.btn_deleteGroup);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_editgroup, menu);
+        return true;
+    }
 
-        btn_addMachine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog();
-            }
-        });
-
-        deleteGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_saveGroup:
+                machines = canvasview.getMachines();
+                if(!machines.isEmpty()){
+                    try {
+                        saveGroupToServer();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case R.id.menu_deleteGroup:
                 new AlertDialog.Builder(EditGroup.this)
                         .setTitle("그룹 삭제 확인")
                         .setMessage(WasherRoom.getInstance().getRoomName() + " 그룹을 삭제하시겠습니까?")
@@ -91,24 +104,12 @@ public class EditGroup extends AppCompatActivity {
                             }
                         })
                         .show();
-            }
-        });
-
-        btn_saveWasherRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                machines = canvasview.getMachines();
-
-                if(!machines.isEmpty()){
-                    try {
-                        saveGroupToServer();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+                break;
+            case R.id.menu_addWasher:
+                showDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

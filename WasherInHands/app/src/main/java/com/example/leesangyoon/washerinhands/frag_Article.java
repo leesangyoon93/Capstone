@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,7 +28,6 @@ import java.util.ArrayList;
  * Created by daddyslab on 2016. 9. 4..
  */
 public class frag_Article extends Fragment implements AdapterView.OnItemClickListener{
-    Button showButton = null;
     Button editButton = null;
 
     ListView articleList;
@@ -36,16 +36,14 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         View root = inflater.inflate(R.layout.fragment_article, container, false);
-        showButton = (Button)root.findViewById(R.id.btn_showArticle);
+
+        Article.getInstance().initArticle();
         editButton = (Button)root.findViewById(R.id.btn_newArticle);
 
-        articleList = (ListView) root.findViewById(R.id.listView_group);
+        articleList = (ListView) root.findViewById(R.id.listView_article);
         articleList.setOnItemClickListener(this);
 
-        articleList.setAdapter(adapterArticleList);
-
-        adapterArticleList = new AdapterArticleList(getActivity(), articles);
-        adapterArticleList.notifyDataSetChanged();
+        articles.clear();
 
         try {
             getArticlesToServer();
@@ -53,9 +51,15 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
             e.printStackTrace();
         }
 
+        adapterArticleList = new AdapterArticleList(getActivity(), articles);
+        adapterArticleList.notifyDataSetChanged();
+
+        articleList.setAdapter(adapterArticleList);
+
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //글새로쓰기
                 Intent intent = new Intent(getActivity(), EditArticle.class);
                 intent.putExtra("path", "fromList");
                 startActivity(intent);
@@ -71,7 +75,11 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), ShowArticle.class);
         try {
-            intent.putExtra("articleNum",articles.get(position).getString("_id"));
+            Article.getInstance().setId(articles.get(position).getString("_id"));
+            Article.getInstance().setContent(articles.get(position).getString("content"));
+            Article.getInstance().setAuthor(articles.get(position).getString("author"));
+            Article.getInstance().setCommentCount(articles.get(position).getString("commentCount"));
+            Article.getInstance().setDate(articles.get(position).getString("articleDate"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -88,9 +96,14 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
 
             @Override
             public void onResponse(JSONArray response) {
-                for (int i = 0; i < response.length(); i++) {
-                    articles.add(response.optJSONObject(i));
-                    adapterArticleList.notifyDataSetChanged();
+
+                if (response.toString().contains("result") && response.toString().contains("fail")) {
+                    Toast.makeText(getActivity(),"알 수 없는 에러가 발생하였습니다.",Toast.LENGTH_SHORT).show();
+                }else {
+                    for (int i = 0; i < response.length(); i++) {
+                        articles.add(response.optJSONObject(i));
+                        adapterArticleList.notifyDataSetChanged();
+                    }
                 }
             }
         }, new Response.ErrorListener() {

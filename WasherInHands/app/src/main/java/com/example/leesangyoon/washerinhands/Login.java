@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +33,7 @@ public class Login extends AppCompatActivity {
     Button loginButton, notRegisterButton;
     EditText userId, password;
 
-    final String URL = "http://52.41.19.232/login";
+    String URL;
 
     SharedPreferences userSession;
 
@@ -41,12 +43,24 @@ public class Login extends AppCompatActivity {
         super.onCreate((savedInstanceState));
         setContentView(R.layout.activity_login);
 
-        Log.e("ssss","로그인");
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
 
         loginButton = (Button) findViewById(R.id.submit_login);
         notRegisterButton = (Button) findViewById(R.id.notRegistered);
 
         userSession = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+
+        userSession = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+
+        if(userSession.contains("userId")){
+            try {
+                loginToServer();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +96,7 @@ public class Login extends AppCompatActivity {
 
     private void userinfoToServer(final String id, final String pw) throws Exception {
 
+        URL = "http://52.41.19.232/login";
         Map<String, String> postParam = new HashMap<String, String>();
         postParam.put("userId", id);
         postParam.put("password", pw);
@@ -131,6 +146,61 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
+        volley.getInstance().addToRequestQueue(req);
+    }
+
+    private void loginToServer() throws Exception {
+
+        URL = String.format("http://52.41.19.232/getUser?userId=%s", URLEncoder.encode(userSession.getString("userId",""), "utf-8"));
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    if(response.getClass().getName().equals("String")) {
+                        if (response.getString("result").equals("fail")) {
+                            //서버연결에 실패하였습니다.
+                            Toast.makeText(Login.this, "알 수 없는 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        if(response.isNull("userId")){
+                            Intent intent = new Intent(Login.this, Login.class);
+                            startActivity(intent);
+                        } else{
+
+                            //response받아와서 user객체에 넘김
+                            User.getInstance().setUserId(response.getString("userId"));
+                            User.getInstance().setPassword(response.getString("password"));
+                            User.getInstance().setUserName(response.getString("userName"));
+                            User.getInstance().setAdmin(response.getBoolean("isAdmin"));
+                            User.getInstance().setMainRoomName(response.getString("mainRoomName"));
+
+                            SharedPreferences.Editor editor = userSession.edit();
+                            editor.putString("userId", User.getInstance().getUserId());
+                            editor.commit();
+
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("development", "Error: " + error.getMessage());
+                Toast.makeText(Login.this,
+                        "네트워크 연결이 원활하지 않습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Adding request to request queue
         volley.getInstance().addToRequestQueue(req);
     }
 }

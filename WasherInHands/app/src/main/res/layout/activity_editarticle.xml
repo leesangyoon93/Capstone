@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="edit article"
-        android:id="@+id/textView14"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="완료"
-        android:id="@+id/btn_complete"
-        android:layout_gravity="center_horizontal"
-        android:onClick="Complete"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/input_title"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="9"
+            android:singleLine="true"
+            android:hint="제목을 입력하세요."
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:padding="10dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="취소"
-        android:id="@+id/btn_cancel"
-        android:layout_gravity="center_horizontal"
-        android:onClick="Cancel"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/input_articleContent"
+            android:layout_weight="1"
+            android:hint="내용을 입력하세요."
+            android:textSize="18sp"
+            android:gravity="top|left"
+            android:padding="10dp" />
+    </LinearLayout>
 </LinearLayout>

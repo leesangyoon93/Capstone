@@ -9,11 +9,16 @@
         android:layout_height="match_parent">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="그룹가입"
+            android:text="그룹 검색/가입"
             android:id="@+id/btn_addGroup"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape"
+            android:padding="5dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="10dp" />
 
         <ListView
             android:layout_width="match_parent"

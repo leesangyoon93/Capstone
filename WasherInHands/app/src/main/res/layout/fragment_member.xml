@@ -3,19 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="frag member"
-        android:id="@+id/text_memberCount"
-        android:layout_gravity="center_horizontal" />
-
     <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/grid_member"
         android:layout_gravity="center_horizontal"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"/>
+        android:numColumns="1"
+        />
 
 </LinearLayout>

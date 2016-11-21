@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,13 @@ public class ShowGroup extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate((savedInstanceState));
         setContentView(R.layout.activity_viewgroup);
+
+        final ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(WasherRoom.getInstance().getRoomName());
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
 
         Intent intent = getIntent();
         mCurrentFragmentIndex = intent.getIntExtra("fragNum", 0);
@@ -51,9 +59,6 @@ public class ShowGroup extends AppCompatActivity {
                 frag = new frag_Article();
                 break;
             case 2:
-                frag = new frag_Chat();
-                break;
-            case 3:
                 frag = new frag_Member();
                 break;
         }
@@ -75,11 +80,8 @@ public class ShowGroup extends AppCompatActivity {
             case R.id.menu_article:
                 mCurrentFragmentIndex = 1;
                 break;
-            case R.id.menu_chat:
-                mCurrentFragmentIndex = 2;
-                break;
             case R.id.menu_member:
-                mCurrentFragmentIndex = 3;
+                mCurrentFragmentIndex = 2;
                 break;
         }
         fragmentReplace(mCurrentFragmentIndex);

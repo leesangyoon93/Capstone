@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:appproject="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_saveGroup"
+        android:title="저장"
+        appproject:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/menu_addWasher"
+        android:title="추가"
+        appproject:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/menu_deleteGroup"
+        android:title="세탁방삭제"
+        appproject:showAsAction="ifRoom"
+        />
+    <!--android:icon="@android:drawable/presence_online"-->
+</menu>

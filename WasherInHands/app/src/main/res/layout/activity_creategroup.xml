@@ -3,40 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="세탁방 생성"
-        android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal"
-        android:textSize="50dp" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="세탁방 이름"
-            android:id="@+id/textView3333"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp" />
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/input_createRoomName"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="세탁방 주소"
-            android:id="@+id/textView19"
             android:layout_gravity="center_horizontal"
-            android:textSize="20dp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:padding="10dp"
+            android:hint="세탁방 이름" />
 
         <EditText
             android:layout_width="match_parent"
@@ -45,15 +27,24 @@
             android:ems="10"
             android:id="@+id/input_createRoomAddress"
             android:layout_gravity="center_horizontal"
-            android:hint="주소" />
+            android:hint="세탁방 주소"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:padding="10dp" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="완료"
             android:id="@+id/submit_createRoom"
             android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/shape"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>

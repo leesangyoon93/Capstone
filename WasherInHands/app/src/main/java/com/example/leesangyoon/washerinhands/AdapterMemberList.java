@@ -49,8 +49,6 @@ public class AdapterMemberList extends BaseAdapter {
         ImageView imageView = (ImageView)view.findViewById(R.id.img_user);
         TextView textView = (TextView)view.findViewById(R.id.text_memberName);
 
-        imageView.setImageResource(R.drawable.user_icon);
-
         try {
             textView.setText(member.getString("userId"));
         } catch (JSONException e) {

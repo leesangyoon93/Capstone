@@ -3,6 +3,7 @@ package com.example.leesangyoon.washerinhands;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -46,6 +47,12 @@ public class JoinGroup extends AppCompatActivity implements AdapterView.OnItemCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate((savedInstanceState));
         setContentView(R.layout.activity_joingroup);
+
+        final ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
 
         searchButton = (Button) findViewById(R.id.btn_search);
         input_searchRoom = (EditText) findViewById(R.id.input_searchGroup);

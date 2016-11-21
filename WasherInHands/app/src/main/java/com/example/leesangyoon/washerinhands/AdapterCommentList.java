@@ -19,11 +19,7 @@ public class AdapterCommentList extends BaseAdapter {
     LayoutInflater mInflater;
     ArrayList<JSONObject> comments;
 
-    TextView text_comment;
-    TextView text_commentAuthor;
-
     public AdapterCommentList(Context context, ArrayList<JSONObject> comments) {
-
         this.comments = comments;
         this.mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -50,13 +46,13 @@ public class AdapterCommentList extends BaseAdapter {
 
         JSONObject comment = comments.get(position);
 
-        text_comment = (TextView)convertView.findViewById(R.id.text_comment);
-        text_commentAuthor = (TextView)convertView.findViewById(R.id.text_commentAuthor);
+        TextView text_comment = (TextView)convertView.findViewById(R.id.text_comment);
+        TextView text_commentAuthor = (TextView)convertView.findViewById(R.id.text_commentAuthor);
 
 
         try {
             text_comment.setText(comment.getString("content"));
-            text_commentAuthor.setText("author");
+            text_commentAuthor.setText("by. " + comment.getString("author"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

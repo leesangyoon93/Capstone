@@ -38,6 +38,10 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
         userId = (EditText)findViewById(R.id.input_registerUserId);
         password = (EditText)findViewById(R.id.input_registerPassword);
         userName = (EditText)findViewById(R.id.input_registerUserName);

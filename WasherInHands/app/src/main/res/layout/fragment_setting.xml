@@ -3,10 +3,46 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Switch
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="frag setting"
-        android:id="@+id/textView5"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/switch1"
+        android:layout_gravity="center_horizontal"
+        android:checked="true"
+        android:text="푸시 알림 ON/OFF"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Made by. 조현웅, 이상윤, 장정규, 박진우"
+            android:id="@+id/textView"
+            android:gravity="bottom|center"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2016-2 다학제 캡스톤디자인"
+            android:id="@+id/textView2"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thanks to 강경란 교수님, 이하나 선생님"
+            android:id="@+id/textView4"
+            android:gravity="center"
+            android:textSize="20sp" />
+    </LinearLayout>
+
 </LinearLayout>

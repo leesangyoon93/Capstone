@@ -66,10 +66,16 @@ public class frag_GroupInfo extends Fragment {
         mainGroup = (Button)root.findViewById(R.id.btn_main);
         exitGroup = (Button)root.findViewById(R.id.btn_exitGroup);
         isMainText = (TextView)root.findViewById(R.id.text_main);
-        roomName = (TextView)root.findViewById(R.id.text_groupInfo_name);
+//        roomName = (TextView)root.findViewById(R.id.text_groupInfo_name);
 
         canvasLayout = (LinearLayout)root.findViewById(R.id.cnavas_layout_onlyShow);
         canvasview = new canvasView_onlyShow(getActivity());
+
+        try {
+            getWasherToServer();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if(User.getInstance().getMainRoomName().isEmpty() && WasherRoom.getInstance().getRoomName().isEmpty()){
             canvasLayout.setVisibility(root.GONE);

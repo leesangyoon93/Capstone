@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +21,6 @@ public class AdapterArticleList extends BaseAdapter{
     ArrayList<JSONObject> articles;
 
     public AdapterArticleList(Context context, ArrayList<JSONObject> articles) {
-
         this.articles = articles;
         this.mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -55,9 +53,9 @@ public class AdapterArticleList extends BaseAdapter{
 
         try {
             articleName.setText(article.getString("title"));
-            commentCount.setText("commentCount");
-            writer.setText(article.getString("writer"));
-            articleDate.setText("articleDate");
+            commentCount.setText("(" + article.getString("commentCount")+ ")");
+            writer.setText(article.getString("author"));
+            articleDate.setText(article.getString("articleDate"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

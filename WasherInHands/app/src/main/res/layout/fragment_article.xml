@@ -3,13 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="frag article"
-        android:id="@+id/textView9"
-        android:layout_gravity="center_horizontal" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -22,12 +15,6 @@
             android:id="@+id/btn_newArticle"
             android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="글보기"
-            android:id="@+id/btn_showArticle"
-            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
     <ListView

@@ -13,6 +13,8 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Vector;
 
+// 로고, 탭 색 변경, 게시판 디자인 전체 다 바꾸기
+
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
@@ -24,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         backPressCloseHandler = new BackPressCloseHandler(this);
+
+        final ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
 
         Intent intent = getIntent();
 
@@ -38,12 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         pager.setAdapter(adapter);
 
-
-        final ActionBar actionBar = getSupportActionBar();
-
-
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
 
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 

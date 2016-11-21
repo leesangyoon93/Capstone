@@ -6,13 +6,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="frag groupinfo"
-        android:id="@+id/text_groupInfo_name"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/text_main"
         android:layout_gravity="center_horizontal" />
 
@@ -24,7 +17,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="메인세탁방으로 설정"
+            android:text="메인설정"
             android:id="@+id/btn_main"
             android:layout_gravity="center_horizontal" />
 
