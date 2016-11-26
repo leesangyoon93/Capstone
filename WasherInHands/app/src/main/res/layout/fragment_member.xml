@@ -9,6 +9,6 @@
         android:id="@+id/grid_member"
         android:layout_gravity="center_horizontal"
         android:numColumns="1"
-        />
+        android:padding="5dp" />
 
 </LinearLayout>

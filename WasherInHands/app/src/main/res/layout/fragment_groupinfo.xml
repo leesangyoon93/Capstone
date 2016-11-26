@@ -9,52 +9,73 @@
         android:id="@+id/text_main"
         android:layout_gravity="center_horizontal" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="메인설정"
-            android:id="@+id/btn_main"
-            android:layout_gravity="center_horizontal" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/layout_btn_guest">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="탈퇴"
-                android:id="@+id/btn_exitGroup"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/layout_btn_host">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수정"
-                android:id="@+id/btn_editGroup"
-                android:layout_gravity="center_horizontal" />
-
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/text_roomName"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:padding="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="7" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/cnavas_layout_onlyShow"></LinearLayout>
+        android:id="@+id/cnavas_layout_onlyShow"
+        android:layout_weight="2" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_weight="7"
+        android:id="@+id/horiz_layout">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="메인설정"
+            android:id="@+id/btn_main"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="탈퇴"
+            android:id="@+id/btn_exitGroup"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:id="@+id/btn_editGroup"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </LinearLayout>

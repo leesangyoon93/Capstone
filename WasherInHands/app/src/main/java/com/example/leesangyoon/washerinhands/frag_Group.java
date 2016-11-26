@@ -1,5 +1,6 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -53,9 +54,8 @@ public class frag_Group extends Fragment implements AdapterView.OnItemClickListe
         roomList = (ListView) root.findViewById(R.id.listView_group);
         roomList.setOnItemClickListener(this);
 
-        //리스트뷰에 별찍기 위해 admin검사해서 adapt로 넘김
-        if(User.getInstance().getAdmin()==true){
-            addGroup.setText("그룹생성");
+        if(User.getInstance().getAdmin()){
+            addGroup.setText("그룹신청");
         }
 
         adapterRoomList = new AdapterRoomList(getActivity(), washerRooms,1);
@@ -99,6 +99,7 @@ public class frag_Group extends Fragment implements AdapterView.OnItemClickListe
 
 
     private void showJoinedGroupToServer() throws Exception{
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", false, false);
 
         String URL= String.format("http://52.41.19.232/showJoinedGroup?userId=%s",
                 URLEncoder.encode(User.getInstance().getUserId(), "utf-8"));
@@ -107,9 +108,16 @@ public class frag_Group extends Fragment implements AdapterView.OnItemClickListe
 
             @Override
             public void onResponse(JSONArray response) {
+                loading.dismiss();
                 for (int i = 0; i < response.length(); i++) {
-                    washerRooms.add(response.optJSONObject(i));
-                    adapterRoomList.notifyDataSetChanged();
+                    try {
+                        if(String.valueOf(response.optJSONObject(i).getBoolean("enabled")).equals("true")) {
+                            washerRooms.add(response.optJSONObject(i));
+                            adapterRoomList.notifyDataSetChanged();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {

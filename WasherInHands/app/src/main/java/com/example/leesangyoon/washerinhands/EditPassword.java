@@ -1,5 +1,6 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -39,7 +40,7 @@ public class EditPassword extends AppCompatActivity {
         assert actionBar != null;
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
 
         changePasswordButton = (Button)findViewById(R.id.btn_changePassword);
 
@@ -69,6 +70,7 @@ public class EditPassword extends AppCompatActivity {
 
 
     private void changePasswordToServer (final String newPassword) throws Exception{
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         String URL = "http://52.41.19.232/editPassword";
 
@@ -81,6 +83,7 @@ public class EditPassword extends AppCompatActivity {
         {
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try{
 
                     if(response.getString("result").equals("fail")) {

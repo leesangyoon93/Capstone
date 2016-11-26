@@ -25,15 +25,12 @@ public class canvasView extends View {
     List<Machine> machines = new ArrayList<Machine>();
     List<Bitmap> bitmaps = new ArrayList<Bitmap>();
 
-
     int MACHINE_SIZE;
     int REMOVE_SIZE;
     final static float CENTERX = 40;
     final static float CENTERY = 40;
     final static double removeLocationX=0.75;
     final static double removeLocationY=0.8;
-    final static int MAX_X = 1000;
-    final static int MAX_Y = 1000;
 
     int canvasWidth=0;
     int canvasHeight=0;
@@ -51,17 +48,17 @@ public class canvasView extends View {
 
     public void onDraw(Canvas canvas){
 
-        Bitmap bitmap_map = Bitmap.createBitmap(2000, 2000, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap_map = Bitmap.createBitmap(2000, 2400, Bitmap.Config.ARGB_8888);
         Canvas mapCanvas = new Canvas(bitmap_map);
-        mapCanvas.translate(1000,1000);
+        mapCanvas.translate(1000,1200);
         Paint p = new Paint();
         p.setStyle(Paint.Style.STROKE);
         p.setStrokeWidth(20);
         p.setColor(Color.RED);
         mapCanvas.drawRect(0-(int)settingMachine.getAlpha(),0-(int)settingMachine.getBeta(),canvas.getWidth()-(int)settingMachine.getAlpha(),canvas.getHeight()-(int)settingMachine.getBeta(),p);
-        mapCanvas.drawColor(Color.argb(180,200,200,200));
+        mapCanvas.drawColor(Color.argb(180,230,230,230));
 
-        canvas.drawColor(Color.rgb(230,230,230));
+        canvas.drawColor(Color.rgb(255,255,255));
 
         canvas.translate((float)settingMachine.getAlpha(),(float)settingMachine.getBeta());
 
@@ -70,13 +67,13 @@ public class canvasView extends View {
 
         settingMachine.setCanvasSize(canvasWidth,canvasHeight);
 
-        MACHINE_SIZE = canvas.getWidth()/4;
+        MACHINE_SIZE = canvas.getWidth()/6;
         REMOVE_SIZE = canvas.getWidth()/4;
 
-        if(MACHINE_SIZE > 300){
-            MACHINE_SIZE=300;
+        if(MACHINE_SIZE > 200){
+            MACHINE_SIZE=200;
         }
-        if(REMOVE_SIZE >250){
+        if(REMOVE_SIZE > 250){
             REMOVE_SIZE=250;
         }
 

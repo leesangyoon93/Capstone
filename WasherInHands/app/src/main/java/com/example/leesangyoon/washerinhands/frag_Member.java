@@ -1,5 +1,6 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,6 +62,7 @@ public class frag_Member extends Fragment {
 
 
     private void showMembersToServer() throws Exception{
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", false, false);
 
         String URL= String.format("http://52.41.19.232/showGroupMember?roomName=%s",
                 URLEncoder.encode(WasherRoom.getInstance().getRoomName(), "utf-8"));
@@ -69,6 +71,7 @@ public class frag_Member extends Fragment {
 
             @Override
             public void onResponse(JSONArray response) {
+                loading.dismiss();
                 for (int i = 0; i < response.length(); i++) {
                     members.add(response.optJSONObject(i));
                     try {

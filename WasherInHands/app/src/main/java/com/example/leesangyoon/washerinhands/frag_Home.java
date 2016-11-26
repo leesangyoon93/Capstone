@@ -1,5 +1,6 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -36,11 +37,11 @@ import javax.net.ssl.HandshakeCompletedEvent;
  */
 public class frag_Home extends Fragment {
 
-    TextView isMainText;
+    TextView isMainText, roomName;
     View root;
 
     canvasView_onlyShow canvasview;
-    LinearLayout canvasLayout;
+    LinearLayout canvasLayout, horizLayout;
 
     List<Machine> machines = new ArrayList<Machine>();
 
@@ -58,18 +59,21 @@ public class frag_Home extends Fragment {
 
         canvasLayout = (LinearLayout)root.findViewById(R.id.cnavas_layout_onlyShow);
         canvasview = new canvasView_onlyShow(getActivity());
+        horizLayout = (LinearLayout)root.findViewById(R.id.horiz_layout);
+        horizLayout.setVisibility(View.GONE);
 
         editGroup = (Button)root.findViewById(R.id.btn_editGroup);
         mainGroup = (Button)root.findViewById(R.id.btn_main);
         exitGroup = (Button)root.findViewById(R.id.btn_exitGroup);
+        roomName = (TextView)root.findViewById(R.id.text_roomName);
 
         isMainText = (TextView)root.findViewById(R.id.text_main);
 
-        try {
-            getWasherToServer();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            getWasherToServer();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         serverThread = new ServerThread();
         serverThread.start();
@@ -77,12 +81,12 @@ public class frag_Home extends Fragment {
         mainGroup.setVisibility(root.GONE);
         exitGroup.setVisibility(root.GONE);
         editGroup.setVisibility(root.GONE);
+        roomName.setVisibility(root.GONE);
 
         if(User.getInstance().getMainRoomName().isEmpty()) {
             isMainText.setText("메인세탁방을 설정해주세요");
         }else{
             isMainText.setVisibility(root.GONE);
-
             try {
                 getWasherToServer();
                 getWasherRoomToServer();
@@ -97,6 +101,7 @@ public class frag_Home extends Fragment {
 
 
     private void getWasherToServer() throws Exception{
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", false, false);
 
         String URL= String.format("http://52.41.19.232/getWasher?roomName=%s",
                 URLEncoder.encode(User.getInstance().getMainRoomName(), "utf-8"));
@@ -105,6 +110,7 @@ public class frag_Home extends Fragment {
 
             @Override
             public void onResponse(JSONArray response) {
+                loading.dismiss();
                 machines.clear();
 
                 Message msg = handler.obtainMessage();
@@ -141,6 +147,7 @@ public class frag_Home extends Fragment {
     }
 
     private void getWasherRoomToServer() throws Exception{
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", false, false);
 
         String URL= String.format("http://52.41.19.232/getGroup?roomName=%s",
                 URLEncoder.encode(User.getInstance().getMainRoomName(), "utf-8"));
@@ -149,7 +156,7 @@ public class frag_Home extends Fragment {
 
             @Override
             public void onResponse(JSONObject response) {
-
+                loading.dismiss();
                 try {
                     WasherRoom.getInstance().setRoomName(response.getString("roomName"));
                     WasherRoom.getInstance().setAddress(response.getString("address"));

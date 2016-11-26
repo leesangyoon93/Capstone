@@ -1,13 +1,16 @@
 package com.example.leesangyoon.washerinhands;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView;
+    TabLayout mainTab;
     BackPressCloseHandler backPressCloseHandler;
 
     @Override
@@ -29,57 +32,41 @@ public class MainActivity extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-
+        actionBar.setDisplayShowTitleEnabled(false);
         Intent intent = getIntent();
 
-        List<Fragment> fragments = new Vector<>();
-        fragments.add(Fragment.instantiate(this, frag_Home.class.getName()));
-        fragments.add(Fragment.instantiate(this, frag_Group.class.getName()));
-        fragments.add(Fragment.instantiate(this, frag_Profile.class.getName()));
-        fragments.add(Fragment.instantiate(this, frag_Setting.class.getName()));
+        mainTab = (TabLayout) findViewById(R.id.mainTab);
+        mainTab.addTab(mainTab.newTab().setText("메인"));
+        mainTab.addTab(mainTab.newTab().setText("그룹"));
+        mainTab.addTab(mainTab.newTab().setText("프로필"));
+        mainTab.addTab(mainTab.newTab().setText("설정"));
+        mainTab.setTabGravity(TabLayout.GRAVITY_FILL);
+        mainTab.setTabTextColors(ColorStateList.valueOf(Color.BLACK));
 
-        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), fragments);
-        final ViewPager pager = (ViewPager)findViewById(R.id.mainPager);
-
-        pager.setAdapter(adapter);
-
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.mainPager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), mainTab.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainTab));
+        mainTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                pager.setCurrentItem(tab.getPosition());
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
 
             @Override
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-            }
-        };
-
-        actionBar.addTab(actionBar.newTab().setText("HOME").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("GROUP").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("PROFILE").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("SETTING").setTabListener(tabListener));
-
-        pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
-
-        pager.setCurrentItem(intent.getIntExtra("fragNum", 0));
-
+        viewPager.setCurrentItem(intent.getIntExtra("fragNum", 0));
+//
     }
 
     @Override

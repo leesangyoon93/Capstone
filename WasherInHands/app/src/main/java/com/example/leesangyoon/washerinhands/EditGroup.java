@@ -1,6 +1,7 @@
 package com.example.leesangyoon.washerinhands;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -50,7 +51,7 @@ public class EditGroup extends AppCompatActivity {
         assert actionBar != null;
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
 
         canvasview = new canvasView(EditGroup.this);
         canvasLayout = (LinearLayout)findViewById(R.id.canvas_layout);
@@ -114,6 +115,7 @@ public class EditGroup extends AppCompatActivity {
 
 
     private void findModuleToServer(final String Module_id) throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         String URL="http://52.41.19.232/findModule";
 
@@ -126,6 +128,7 @@ public class EditGroup extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
                     if (response.getString("result").equals("fail")) {
                         showDialog();
@@ -152,6 +155,7 @@ public class EditGroup extends AppCompatActivity {
     }
 
     private void saveGroupToServer() throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         String URL="http://52.41.19.232/saveGroup";
 
@@ -184,6 +188,7 @@ public class EditGroup extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
                     if (response.getString("result").equals("fail")) {
                         Toast.makeText(EditGroup.this, "알 수 없는 에러가 발생하였습니다.", Toast.LENGTH_SHORT).show();
@@ -211,6 +216,7 @@ public class EditGroup extends AppCompatActivity {
 
 
     private void getWasherToServer() throws Exception{
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         String URL= String.format("http://52.41.19.232/getWasher?roomName=%s",
                 URLEncoder.encode(WasherRoom.getInstance().getRoomName(), "utf-8"));
@@ -219,6 +225,7 @@ public class EditGroup extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONArray response) {
+                loading.dismiss();
                 machines.clear();
 
                 try {
@@ -245,6 +252,7 @@ public class EditGroup extends AppCompatActivity {
     }
 
     private void deleteGroupToServer() throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         String URL = String.format("http://52.41.19.232/deleteGroup?roomName=%s", URLEncoder.encode(WasherRoom.getInstance().getRoomName(), "utf-8"));
 
@@ -252,7 +260,7 @@ public class EditGroup extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
-
+                loading.dismiss();
                 try {
                     if(response.getString("result").equals("fail")) {
                         Toast.makeText(EditGroup.this, "알 수 없는 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
@@ -279,17 +287,6 @@ public class EditGroup extends AppCompatActivity {
         // Adding request to request queue
         volley.getInstance().addToRequestQueue(req);
     }
-
-
-
-
-
-
-
-
-
-
-
 
     private void showDialog(){
         final EditText input_module = new EditText(EditGroup.this);

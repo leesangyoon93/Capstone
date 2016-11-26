@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class User {
 
-    private String mainRoomName=null;
+    private String mainRoomName= "";
     private String userId=null;
     private String password=null;
     private String userName=null;

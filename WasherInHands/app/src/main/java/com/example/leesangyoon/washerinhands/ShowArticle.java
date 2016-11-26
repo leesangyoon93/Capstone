@@ -1,5 +1,6 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +50,7 @@ public class ShowArticle extends AppCompatActivity {
     TextView author;
     EditText input_comment;
     AdapterCommentList adapterCommentList;
+    LinearLayout btn_layout;
 
     ArrayList<JSONObject> comments = new ArrayList<JSONObject>();
 
@@ -58,9 +61,8 @@ public class ShowArticle extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
 
         editArticle = (Button) findViewById(R.id.btn_editArticle);
         deleteArticle = (Button) findViewById(R.id.btn_deleteArticle);
@@ -72,11 +74,11 @@ public class ShowArticle extends AppCompatActivity {
         commentCount = (TextView) findViewById(R.id.text_commentCount2);
         articleDate = (TextView) findViewById(R.id.text_articleDate2);
         text_content = (TextView) findViewById(R.id.text_content);
+        btn_layout = (LinearLayout)findViewById(R.id.hori_layout);
 
         comments.clear();
 
-        editArticle.setVisibility(View.GONE);
-        deleteArticle.setVisibility(View.GONE);
+        btn_layout.setVisibility(View.GONE);
 
         try {
             showArticleToServer();
@@ -109,6 +111,7 @@ public class ShowArticle extends AppCompatActivity {
 
 
     private void showCommentsToServer() throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         String URL = String.format("http://52.41.19.232/showComments?articleId=%s",
                 URLEncoder.encode(Article.getInstance().getId(), "utf-8"));
@@ -117,7 +120,7 @@ public class ShowArticle extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONArray response) {
-
+                loading.dismiss();
                 if (response.toString().contains("result") && response.toString().contains("fail")) {
                     Toast.makeText(ShowArticle.this,"댓글을 불러오는데 실패하였습니다.",Toast.LENGTH_SHORT).show();
                 } else {
@@ -139,6 +142,7 @@ public class ShowArticle extends AppCompatActivity {
     }
 
     private void showArticleToServer() throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         String URL = String.format("http://52.41.19.232/showArticle?articleId=%s",
                 URLEncoder.encode(Article.getInstance().getId(), "utf-8"));
@@ -147,6 +151,7 @@ public class ShowArticle extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
                     if (response.toString().contains("result") && response.toString().contains("fail")) {
                         Toast.makeText(ShowArticle.this,"게시글을 불러오는데 실패하였습니다.",Toast.LENGTH_SHORT).show();
@@ -165,8 +170,7 @@ public class ShowArticle extends AppCompatActivity {
                         articleDate.setText(Article.getInstance().getDate());
 
                         if (User.getInstance().getUserId().equals(response.getString("author"))) {
-                            editArticle.setVisibility(View.VISIBLE);
-                            deleteArticle.setVisibility(View.VISIBLE);
+                            btn_layout.setVisibility(View.VISIBLE);
 
                             editArticle.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -222,6 +226,7 @@ public class ShowArticle extends AppCompatActivity {
     }
 
     private void saveCommentToServer() throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         Map<String, String> postParam= new HashMap<String, String>();
         postParam.put("userId", User.getInstance().getUserId());
@@ -234,6 +239,7 @@ public class ShowArticle extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
                     if (response.getString("result").equals("success")) {
                         Toast.makeText(ShowArticle.this, "댓글이 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
@@ -259,6 +265,7 @@ public class ShowArticle extends AppCompatActivity {
     }
 
     private void deleteArticleToServer() throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         Map<String, String> postParam= new HashMap<String, String>();
         postParam.put("articleId", Article.getInstance().getId());
@@ -269,6 +276,7 @@ public class ShowArticle extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
                     if (response.getString("result").equals("success")) {
                         Toast.makeText(ShowArticle.this, "글이 삭제되었습니다.", Toast.LENGTH_SHORT).show();

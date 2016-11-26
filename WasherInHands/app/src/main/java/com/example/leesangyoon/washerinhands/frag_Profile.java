@@ -1,5 +1,6 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,6 +77,7 @@ public class frag_Profile extends Fragment {
     }
 
     private void logoutToServer() throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", false, false);
 
         String URL = String.format("http://52.41.19.232/logout");
 
@@ -83,6 +85,7 @@ public class frag_Profile extends Fragment {
 
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
                     if (response.getString("result").equals("success")) {
 

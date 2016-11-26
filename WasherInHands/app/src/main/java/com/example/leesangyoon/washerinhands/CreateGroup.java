@@ -1,5 +1,6 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -37,7 +38,7 @@ public class CreateGroup extends AppCompatActivity {
         assert actionBar != null;
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
 
         createButton = (Button) findViewById(R.id.submit_createRoom);
 
@@ -65,6 +66,7 @@ public class CreateGroup extends AppCompatActivity {
 
     private void createRoomToServer(final String roomName, final String address) throws Exception {
 
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
         Map<String, String> postParam = new HashMap<String, String>();
         postParam.put("roomName", roomName);
         postParam.put("address", address);
@@ -74,6 +76,7 @@ public class CreateGroup extends AppCompatActivity {
                 new JSONObject(postParam), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
 
                     if (response.toString().contains("result")) {
@@ -89,8 +92,9 @@ public class CreateGroup extends AppCompatActivity {
                         if(User.getInstance().getMainRoomName().isEmpty()){
                             User.getInstance().setMainRoomName(response.getString("roomName"));
                         }
-
-                        Intent intent = new Intent(CreateGroup.this, EditGroup.class);
+                        Toast.makeText(CreateGroup.this, "세탁방 신청이 완료되었습니다. 승인 대기해주세요.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CreateGroup.this, MainActivity.class);
+                        intent.putExtra("fragNum", 1);
                         startActivity(intent);
                     }
 

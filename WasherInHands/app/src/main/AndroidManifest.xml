@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo2"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -18,26 +18,24 @@
         <meta-data android:name="QUERY_LOG" android:value="true" />
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.leesangyoon.washerinhands" />
 
-        <activity android:name=".Login">
+        <activity android:name=".Login" android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register"></activity>
-        <activity android:name=".ShowGroup"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".JoinGroup" android:label="그룹검색/가입"></activity>
-        <activity android:name=".EditPassword" android:label="비밀번호 변경"></activity>
+        <activity android:name=".Register"/>
+        <activity android:name=".ShowGroup"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".JoinGroup" android:label="그룹검색/가입"/>
+        <activity android:name=".EditPassword" android:label="비밀번호 변경"/>
         <activity android:name=".EditArticle"
-                  android:windowSoftInputMode="adjustPan" android:label="글 작성/수정"
-            ></activity>
+                  android:windowSoftInputMode="adjustPan" android:label="글 작성/수정"/>
         <activity android:name=".ShowArticle"
-                  android:windowSoftInputMode="stateHidden" android:label="글상세정보"
-            ></activity>
-        <activity android:name=".CreateGroup" android:label="세탁방생성"></activity>
-        <activity android:name=".EditGroup" android:label="세탁방수정"></activity>
+                  android:windowSoftInputMode="stateHidden|adjustResize" android:label="글상세정보"/>
+        <activity android:name=".CreateGroup" android:label="세탁방생성"/>
+        <activity android:name=".EditGroup" android:label="세탁방수정"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

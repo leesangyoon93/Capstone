@@ -1,6 +1,8 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import whdghks913.tistory.floatingactionbutton.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,8 +30,6 @@ import java.util.ArrayList;
  * Created by daddyslab on 2016. 9. 4..
  */
 public class frag_Article extends Fragment implements AdapterView.OnItemClickListener{
-    Button editButton = null;
-
     ListView articleList;
     AdapterArticleList adapterArticleList;
     ArrayList<JSONObject> articles = new ArrayList<JSONObject>();
@@ -38,10 +38,11 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
         View root = inflater.inflate(R.layout.fragment_article, container, false);
 
         Article.getInstance().initArticle();
-        editButton = (Button)root.findViewById(R.id.btn_newArticle);
 
+        FloatingActionButton mFloatingButton = (FloatingActionButton) root.findViewById(R.id.mFloatingActionButton);
         articleList = (ListView) root.findViewById(R.id.listView_article);
         articleList.setOnItemClickListener(this);
+        mFloatingButton.attachToListView(articleList);
 
         articles.clear();
 
@@ -56,7 +57,7 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
 
         articleList.setAdapter(adapterArticleList);
 
-        editButton.setOnClickListener(new View.OnClickListener() {
+        mFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //글새로쓰기
@@ -88,6 +89,7 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
 
 
     private void getArticlesToServer() throws Exception{
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", false, false);
 
         String URL= String.format("http://52.41.19.232/getArticles?roomName=%s",
                 URLEncoder.encode(WasherRoom.getInstance().getRoomName(), "utf-8"));
@@ -96,7 +98,7 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
 
             @Override
             public void onResponse(JSONArray response) {
-
+                loading.dismiss();
                 if (response.toString().contains("result") && response.toString().contains("fail")) {
                     Toast.makeText(getActivity(),"알 수 없는 에러가 발생하였습니다.",Toast.LENGTH_SHORT).show();
                 }else {

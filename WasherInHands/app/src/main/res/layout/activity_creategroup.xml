@@ -37,7 +37,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="완료"
+            android:text="신청하기"
             android:id="@+id/submit_createRoom"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="40dp"

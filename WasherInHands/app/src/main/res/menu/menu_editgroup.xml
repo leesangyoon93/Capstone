@@ -13,7 +13,7 @@
         />
     <item
         android:id="@+id/menu_deleteGroup"
-        android:title="세탁방삭제"
+        android:title="삭제"
         appproject:showAsAction="ifRoom"
         />
     <!--android:icon="@android:drawable/presence_online"-->

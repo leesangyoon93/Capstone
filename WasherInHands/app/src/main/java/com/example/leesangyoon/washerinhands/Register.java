@@ -1,6 +1,7 @@
 
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -77,6 +78,8 @@ public class Register extends AppCompatActivity {
 
     private void userinfoToServer(final String id, final String pw, final String name) throws Exception{
 
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
+
         Map<String, String> postParam= new HashMap<String, String>();
         postParam.put("userId", id);
         postParam.put("password", pw);
@@ -87,6 +90,7 @@ public class Register extends AppCompatActivity {
                 {
                     @Override
                     public void onResponse(JSONObject response) {
+                        loading.dismiss();
                         try{
 
                             if(response.toString().contains("result")){

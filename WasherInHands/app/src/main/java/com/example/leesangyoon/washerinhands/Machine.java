@@ -56,10 +56,10 @@ public class Machine {
         }else if(centerX<=-1000){
             centerX=-1000;
         }
-        if(centerY>1000-MACHINE_SIZE){
-            centerY=1000-MACHINE_SIZE;
-        }else if(centerY<=-1000){
-            centerY=-1000;
+        if(centerY>1200-MACHINE_SIZE){
+            centerY=1200-MACHINE_SIZE;
+        }else if(centerY<=-1200){
+            centerY=-1200;
         }
     }
 
@@ -101,10 +101,10 @@ public class Machine {
     public void addBeta(double beta){
         this.beta += beta;
 
-        if(this.beta<-1000+CANVAS_HEIGHT) {
-            this.beta = -1000+CANVAS_HEIGHT;
-        } else if(this.beta>1000){
-            this.beta=1000;
+        if(this.beta<-1200+CANVAS_HEIGHT) {
+            this.beta = -1200+CANVAS_HEIGHT;
+        } else if(this.beta>1200){
+            this.beta=1200;
         }
     }
 

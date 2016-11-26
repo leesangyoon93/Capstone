@@ -1,5 +1,6 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
@@ -39,8 +40,6 @@ public class frag_GroupInfo extends Fragment {
     boolean isHost;
     TextView roomName;
     TextView isMainText;
-    LinearLayout layout_host;
-    LinearLayout layout_guest;
     Button editGroup;
     Button mainGroup;
     Button exitGroup;
@@ -59,15 +58,14 @@ public class frag_GroupInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
 
         root = inflater.inflate(R.layout.fragment_groupinfo, container, false);
-        layout_host = (LinearLayout)root.findViewById(R.id.layout_btn_host);
-        layout_guest = (LinearLayout)root.findViewById(R.id.layout_btn_guest);
 
         editGroup = (Button)root.findViewById(R.id.btn_editGroup);
         mainGroup = (Button)root.findViewById(R.id.btn_main);
         exitGroup = (Button)root.findViewById(R.id.btn_exitGroup);
         isMainText = (TextView)root.findViewById(R.id.text_main);
-//        roomName = (TextView)root.findViewById(R.id.text_groupInfo_name);
+        roomName = (TextView)root.findViewById(R.id.text_roomName);
 
+        roomName.setText(WasherRoom.getInstance().getRoomName());
         canvasLayout = (LinearLayout)root.findViewById(R.id.cnavas_layout_onlyShow);
         canvasview = new canvasView_onlyShow(getActivity());
 
@@ -87,8 +85,8 @@ public class frag_GroupInfo extends Fragment {
         serverThread.start();
 
         isMainText.setVisibility(root.GONE);
-        layout_host.setVisibility(root.GONE);
-        layout_guest.setVisibility(root.GONE);
+        exitGroup.setVisibility(root.GONE);
+        editGroup.setVisibility(root.GONE);
 
         try {
             hostCheckToServer();
@@ -105,6 +103,7 @@ public class frag_GroupInfo extends Fragment {
 
 
     private void hostCheckToServer() throws Exception{
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", false, false);
 
         String URL = String.format("http://52.41.19.232/getHost?userId=%s&roomName=%s",
                 URLEncoder.encode(User.getInstance().getUserId(), "utf-8"),URLEncoder.encode(WasherRoom.getInstance().getRoomName(), "utf-8"));
@@ -113,6 +112,7 @@ public class frag_GroupInfo extends Fragment {
 
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
                     if (response.getString("result").equals("fail")) {
                         isHost = false;
@@ -121,7 +121,7 @@ public class frag_GroupInfo extends Fragment {
                     }
 
                     if(isHost) {
-                        layout_host.setVisibility(root.VISIBLE);
+                        editGroup.setVisibility(root.VISIBLE);
 
                         mainGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -144,7 +144,7 @@ public class frag_GroupInfo extends Fragment {
                     }
                     else {
 
-                        layout_guest.setVisibility(root.VISIBLE);
+                        exitGroup.setVisibility(root.VISIBLE);
 
                         mainGroup.setOnClickListener(new View.OnClickListener() {
                             @Override

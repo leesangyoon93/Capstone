@@ -30,7 +30,7 @@ public class ShowGroup extends AppCompatActivity {
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(WasherRoom.getInstance().getRoomName());
         actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
 
         Intent intent = getIntent();
         mCurrentFragmentIndex = intent.getIntExtra("fragNum", 0);

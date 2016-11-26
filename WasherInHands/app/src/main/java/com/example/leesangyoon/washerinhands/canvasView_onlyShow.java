@@ -51,17 +51,17 @@ public class canvasView_onlyShow extends View {
 
     public void onDraw(Canvas canvas) {
 
-        Bitmap bitmap_map = Bitmap.createBitmap(2000, 2000, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap_map = Bitmap.createBitmap(2000, 2400, Bitmap.Config.ARGB_8888);
         Canvas mapCanvas = new Canvas(bitmap_map);
-        mapCanvas.translate(1000, 1000);
+        mapCanvas.translate(1000, 1200);
         Paint p = new Paint();
         p.setStyle(Paint.Style.STROKE);
         p.setStrokeWidth(20);
         p.setColor(Color.RED);
-        mapCanvas.drawColor(Color.argb(180, 200, 200, 200));
+        mapCanvas.drawColor(Color.argb(180, 230, 230, 230));
         mapCanvas.drawRect(0 - (int) settingMachine.getAlpha(), 0 - (int) settingMachine.getBeta(), canvas.getWidth() - (int) settingMachine.getAlpha(), canvas.getHeight() - (int) settingMachine.getBeta(), p);
 
-        canvas.drawColor(Color.rgb(230, 230, 230));
+        canvas.drawColor(Color.rgb(255, 255, 255));
         canvas.translate((float) settingMachine.getAlpha(), (float) settingMachine.getBeta());
 
         canvasWidth = canvas.getWidth();
@@ -69,9 +69,9 @@ public class canvasView_onlyShow extends View {
 
         settingMachine.setCanvasSize(canvasWidth, canvasHeight);
 
-        MACHINE_SIZE = canvas.getWidth() / 4;
-        if (MACHINE_SIZE > 300) {
-            MACHINE_SIZE = 300;
+        MACHINE_SIZE = canvas.getWidth() / 6;
+        if (MACHINE_SIZE > 200) {
+            MACHINE_SIZE = 200;
         }
         settingMachine.setMACHINE_SIZE(MACHINE_SIZE);
 
@@ -149,11 +149,11 @@ public class canvasView_onlyShow extends View {
                     }
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("세탁기 상세정보")
-                            .setMessage("세탁방: " + WasherRoom.getInstance().getRoomName() + "\n" +
-                                    "세탁기 번호: " + machineNum+1 + "번 세탁기\n\n" +
-                                    "모듈ID: " + machines.get(machineNum).getModule() + "\n" +
-                                    "경과시간: " + machines.get(machineNum).getRuntTime() + "\n" +
-                                    "작동: " + working + "\n")
+                            .setMessage("세탁방 : " + WasherRoom.getInstance().getRoomName() + "\n" +
+                                        "세탁기 번호 : " + String.valueOf(machineNum+1) + "번 세탁기\n\n" +
+                                    "모듈ID : " + machines.get(machineNum).getModule() + "\n" +
+                                    "경과시간 : " + machines.get(machineNum).getRuntTime() + "분\n" +
+                                    "작동여부 : " + working)
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -162,12 +162,8 @@ public class canvasView_onlyShow extends View {
                             });
                     AlertDialog dialog = builder.show();
                     TextView dialogMessage = (TextView)dialog.findViewById(android.R.id.message);
-//                    TextView dialogTitle = (TextView)dialog.findViewById(android.R.id.title);
-//                    dialogTitle.setGravity(Gravity.CENTER);
-//                    dialogTitle.setTextSize(30);
-//                    dialogTitle.setTextColor(Color.GREEN);
-                    dialogMessage.setGravity(Gravity.CENTER);
-                    dialogMessage.setTextColor(Color.BLUE);
+                    dialogMessage.setGravity(Gravity.LEFT);
+                    dialogMessage.setTextColor(Color.BLACK);
 
                 }
             }
@@ -200,8 +196,8 @@ public class canvasView_onlyShow extends View {
                 }
             }
 
-            settingMachine.addAlpha(-minX);
-            settingMachine.addBeta(-minY);
+            settingMachine.addAlpha(-minX+10);
+            settingMachine.addBeta(-minY+10);
             isFirst=false;
         }
 

@@ -1,12 +1,16 @@
 package com.example.leesangyoon.washerinhands;
 
+import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,39 +66,59 @@ public class Login extends AppCompatActivity {
             }
         }
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnTouchListener(new View.OnTouchListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        loginButton.setBackground(getResources().getDrawable(R.drawable.pressed_shape));
+                        userId = (EditText) findViewById(R.id.input_loginId);
+                        password = (EditText) findViewById(R.id.input_loginPassword);
+                        String id = userId.getText().toString();
+                        String pw = password.getText().toString();
 
-                userId = (EditText) findViewById(R.id.input_loginId);
-                password = (EditText) findViewById(R.id.input_loginPassword);
-                String id = userId.getText().toString();
-                String pw = password.getText().toString();
-
-                if(id.isEmpty()){
-                    Toast.makeText(Login.this, "아이디를 쳐주세요.", Toast.LENGTH_SHORT).show();
-                }else if(pw.isEmpty()){
-                    Toast.makeText(Login.this, "비밀번호를 쳐주세요.", Toast.LENGTH_SHORT).show();
-                }else{
-                    try {
-                        userinfoToServer(id, pw);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                        if(id.isEmpty()){
+                            Toast.makeText(Login.this, "아이디를 쳐주세요.", Toast.LENGTH_SHORT).show();
+                        }else if(pw.isEmpty()){
+                            Toast.makeText(Login.this, "비밀번호를 쳐주세요.", Toast.LENGTH_SHORT).show();
+                        }else{
+                            try {
+                                userinfoToServer(id, pw);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        loginButton.setBackground(getResources().getDrawable(R.drawable.shape));
+                        break;
                 }
+                return true;
             }
         });
 
-        notRegisterButton.setOnClickListener(new View.OnClickListener() {
+        notRegisterButton.setOnTouchListener(new View.OnTouchListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login.this, Register.class);
-                startActivity(intent);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        notRegisterButton.setBackground(getResources().getDrawable(R.drawable.pressed_shape));
+                        Intent intent = new Intent(Login.this, Register.class);
+                        startActivity(intent);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        notRegisterButton.setBackground(getResources().getDrawable(R.drawable.shape));
+                        break;
+                }
+                return true;
             }
         });
     }
 
     private void userinfoToServer(final String id, final String pw) throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         URL = "http://52.41.19.232/login";
         Map<String, String> postParam = new HashMap<String, String>();
@@ -106,6 +130,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
+                loading.dismiss();
                 try {
 
                     if (response.toString().contains("result")) {
@@ -114,7 +139,7 @@ public class Login extends AppCompatActivity {
                         }else if(response.getString("result").equals("failId")){
                             Toast.makeText(Login.this, "존재하지 않는 ID입니다.", Toast.LENGTH_SHORT).show();
                         }else if(response.getString("result").equals("failPw")){
-                            Toast.makeText(Login.this, "비밀번호가 옳바르지 않습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "비밀번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
 
@@ -150,6 +175,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void loginToServer() throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
         URL = String.format("http://52.41.19.232/getUser?userId=%s", URLEncoder.encode(userSession.getString("userId",""), "utf-8"));
 
@@ -157,7 +183,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
-
+                loading.dismiss();
                 try {
                     if(response.getClass().getName().equals("String")) {
                         if (response.getString("result").equals("fail")) {
