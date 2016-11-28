@@ -8,11 +8,38 @@
         android:layout_height="wrap_content"
         android:id="@+id/switch1"
         android:layout_gravity="center_horizontal"
-        android:checked="true"
+        android:checked="false"
         android:text="푸시 알림 ON/OFF"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
         android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남은 시간"
+            android:id="@+id/textView3"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_remainTime"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="5dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"

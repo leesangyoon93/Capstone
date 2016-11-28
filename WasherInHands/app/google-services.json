@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "85402216265",
+    "project_id": "setakmon"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85402216265:android:e87f8d29838811b1",
+        "android_client_info": {
+          "package_name": "com.example.leesangyoon.washerinhands"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNRF3HQz5lEVqnIZoy1wbvjF4tcyNse30"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

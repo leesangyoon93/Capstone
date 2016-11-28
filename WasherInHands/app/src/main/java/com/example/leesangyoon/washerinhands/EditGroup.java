@@ -134,7 +134,11 @@ public class EditGroup extends AppCompatActivity {
                         showDialog();
                         Toast.makeText(EditGroup.this, "모듈을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
 
-                    } else if(response.getString("result").equals("success")) {
+                    }
+                    else if(response.getString("result").equals("overlap")) {
+                        Toast.makeText(EditGroup.this, "이미 등록된 모듈입니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(response.getString("result").equals("success")) {
                         Toast.makeText(EditGroup.this, "모듈이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                         canvasview.addMachine(SENSOR_ID);
                     }

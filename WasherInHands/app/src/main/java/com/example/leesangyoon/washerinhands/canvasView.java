@@ -3,7 +3,9 @@ package com.example.leesangyoon.washerinhands;
 /**
  * Created by Administrator on 2016-09-05.
  */
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,9 +14,21 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class canvasView extends View {
 
@@ -186,6 +200,11 @@ public class canvasView extends View {
                     ey>canvasHeight*(removeLocationY)&& ey<canvasHeight*(removeLocationY)+REMOVE_SIZE) {
                 for(int i=0;i<machines.size();i++){
                     if(machines.get(i).getMovingMode()){
+                        try {
+                            deleteWasherToServer(machines.get(i).getModule());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         machines.remove(i);
                     }
                 }
@@ -258,5 +277,42 @@ public class canvasView extends View {
         settingMachine.addAlpha(-minX);
         settingMachine.addBeta(-minY);
         invalidate();
+    }
+
+    private void deleteWasherToServer(final String module) throws Exception {
+        final ProgressDialog loading = ProgressDialog.show(getContext(), "Loading...", "Please wait...", false, false);
+
+        Map<String, String> postParam = new HashMap<String, String>();
+        postParam.put("module", module);
+
+        String URL = "http://52.41.19.232/deleteWasher";
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL,
+                new JSONObject(postParam), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                loading.dismiss();
+                try {
+
+                    if (response.toString().contains("result")) {
+                        if (response.getString("result").equals("fail")) {
+                            Toast.makeText(getContext(), "알 수 없는 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                        } else if (response.getString("result").equals("success")) {
+                            Toast.makeText(getContext(), "세탁기 삭제 완료.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.d("development", "Error: " + error.getMessage());
+                    }
+                });
+        volley.getInstance().addToRequestQueue(req);
     }
 }

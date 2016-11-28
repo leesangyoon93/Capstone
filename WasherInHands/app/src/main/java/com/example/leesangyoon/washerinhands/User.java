@@ -15,6 +15,16 @@ public class User {
     private String password=null;
     private String userName=null;
     private boolean isAdmin;
+    String token = "";
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     private ArrayList<WasherRoom> washerRooms = new ArrayList<WasherRoom>();
 
     private User() {}

@@ -157,7 +157,7 @@ public class JoinGroup extends AppCompatActivity implements AdapterView.OnItemCl
             longtitude = String.valueOf(loc.getLongitude());
             latitude = String.valueOf(loc.getLatitude());
 
-            if(input_searchRoom.getText().toString().equals("") && washerRooms.size() == 0) {
+            if (input_searchRoom.getText().toString().equals("") && washerRooms.size() == 0) {
                 try {
                     load.dismiss();
                     nearGroupToServer();
