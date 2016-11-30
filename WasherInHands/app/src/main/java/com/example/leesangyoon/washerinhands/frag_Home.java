@@ -48,7 +48,6 @@ public class frag_Home extends Fragment {
     Button editGroup;
     Button mainGroup;
     Button exitGroup;
-
     ServerThread serverThread = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
@@ -182,7 +181,6 @@ public class frag_Home extends Fragment {
         public boolean handleMessage(Message msg) {
 
             switch(msg.arg1){
-
                 case 0:
                     Toast.makeText(getActivity(),"서버와의 연결이 원할하지 않습니다.",Toast.LENGTH_SHORT).show();
                     break;

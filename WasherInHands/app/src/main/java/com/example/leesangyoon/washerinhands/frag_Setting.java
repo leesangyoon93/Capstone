@@ -43,28 +43,16 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
     TextView tv;
     Timer mTimer = null;
     Message msg = null;
-    Boolean state = true;
+    TimerTask task = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         if (container == null)
             return null;
 
+
         View root = inflater.inflate(R.layout.fragment_setting, container, false);
         push_switch = (Switch) root.findViewById(R.id.switch1);
         tv = (TextView) root.findViewById(R.id.text_remainTime);
-
-        if (push_switch.isChecked()) {
-            try {
-                getAlarmToServer();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                getAlarmToServer();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
         push_switch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +61,7 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
                 if (push_switch.isChecked()) {
                     show();
                 } else {
-                    tv.setText("0");
+                    tv.setText("");
                     try {
                         stopAlarmToServer();
                     } catch (Exception e) {
@@ -82,6 +70,14 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
                 }
             }
         });
+
+
+        try {
+            getAlarmToServer();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         return root;
     }
@@ -146,7 +142,11 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
                             Toast.makeText(getActivity(), "알 수 없는 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         } else if (response.getString("result").equals("success")) {
                             Toast.makeText(getActivity(), "알람 설정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                            TimerTask task = new TimerTask() {
+                            if(task != null) {
+                                task.cancel();
+                                task = null;
+                            }
+                            task = new TimerTask() {
                                 public void run() {
                                     try {
                                         msg = handler.obtainMessage();
@@ -230,22 +230,20 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
                         if (response.getString("result").equals("fail")) {
                             Toast.makeText(getActivity(), "알 수 없는 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         } else if (response.getString("result").equals("success")) {
-                            if(state) {
-                                if(response.getString("alarm").equals("0")) {
-                                    push_switch.setChecked(false);
-                                    tv.setText("0");
-                                }
-                                else {
-                                    push_switch.setChecked(true);
-                                    tv.setText(response.getString("alarm"));
-                                    Log.e("adsf", tv.getText().toString());
-                                }
 
-                                state = false;
+                            if(response.getString("alarm").equals("0")) {
+                                push_switch.setChecked(false);
+                                tv.setText("");
                             }
                             else {
+                                push_switch.setChecked(true);
                                 tv.setText(response.getString("alarm"));
-                                TimerTask task = new TimerTask() {
+                                mTimer.purge();
+                                if(task != null) {
+                                    task.cancel();
+                                    task = null;
+                                }
+                                task = new TimerTask() {
                                     public void run() {
                                         try {
                                             msg = handler.obtainMessage();
@@ -281,13 +279,14 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
         public boolean handleMessage(Message msg) {
             switch (msg.arg1) {
                 case 1:
-                        if (tv.getText().toString().equals("1")) {
+                    if(!tv.getText().toString().equals("")) {
+                        tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString()) - 1));
+                        if (tv.getText().toString().equals("0")) {
                             mTimer.cancel();
                             push_switch.setChecked(false);
                         }
-                    tv.setText(String.valueOf(Integer.parseInt(tv.getText().toString()) - 1));
-                        break;
-
+                    }
+                    break;
             }
             return true;
         }
