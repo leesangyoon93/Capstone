@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
 
     <NumberPicker
         android:id="@+id/numberPicker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:layout_margin="30dp" />
 
-    <Button
-        android:id="@+id/button1"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/numberPicker1"
-        android:background="@drawable/shape"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@+id/numberPicker1"
-        android:text="설정" />
+        android:layout_below="@id/numberPicker1"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="20dp">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:background="@drawable/shape"
-        android:layout_marginRight="16dp"
-        android:layout_toLeftOf="@+id/numberPicker1"
-        android:text="취소" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:text="취소"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:text="설정"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

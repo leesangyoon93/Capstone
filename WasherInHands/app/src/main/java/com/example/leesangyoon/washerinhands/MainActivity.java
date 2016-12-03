@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if(action.equals(QuickstartPreferences.REGISTRATION_COMPLETE)){
                     // 액션이 COMPLETE일 경우
                     String token = intent.getStringExtra("token");
-                    Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
                     User.getInstance().setToken(token);
                 }
 

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -158,7 +157,7 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
                                 }
                             };
                             mTimer = new Timer();
-                            mTimer.schedule(task, 1000, 1000);
+                            mTimer.schedule(task, 1000, 1000*60);
                         }
                     }
                 } catch (JSONException e) {
@@ -238,7 +237,6 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
                             else {
                                 push_switch.setChecked(true);
                                 tv.setText(response.getString("alarm"));
-                                mTimer.purge();
                                 if(task != null) {
                                     task.cancel();
                                     task = null;
@@ -255,7 +253,7 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
                                     }
                                 };
                                 mTimer = new Timer();
-                                mTimer.schedule(task, 1000, 1000);
+                                mTimer.schedule(task, 1000, 1000*60);
                             }
                         }
                     }

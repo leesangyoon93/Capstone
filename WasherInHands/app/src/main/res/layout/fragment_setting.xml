@@ -31,14 +31,31 @@
             android:textStyle="bold"
             android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_remainTime"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginTop="5dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_remainTime"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="분"
+                android:id="@+id/textView5"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -53,7 +70,8 @@
             android:text="Made by. 조현웅, 이상윤, 장정규, 박진우"
             android:id="@+id/textView"
             android:gravity="bottom|center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000" />
 
         <TextView
             android:layout_width="match_parent"
@@ -61,7 +79,8 @@
             android:text="2016-2 다학제 캡스톤디자인"
             android:id="@+id/textView2"
             android:gravity="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000" />
 
         <TextView
             android:layout_width="match_parent"
@@ -69,7 +88,8 @@
             android:text="Thanks to 강경란 교수님, 이하나 선생님"
             android:id="@+id/textView4"
             android:gravity="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000" />
     </LinearLayout>
 
 </LinearLayout>

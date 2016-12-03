@@ -54,6 +54,6 @@
         android:background="@drawable/shape"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
-        android:textColor="#c0e9f7"
+        android:textColor="#fff"
         android:textSize="15sp" />
 </LinearLayout>
