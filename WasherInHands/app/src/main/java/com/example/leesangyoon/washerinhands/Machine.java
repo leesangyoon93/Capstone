@@ -21,7 +21,6 @@ public class Machine {
 
 
     public Machine(){
-
     }
 
     public Machine(String sensorID, double centerX, double centerY, int runtTime, boolean isTrouble, boolean isWorking){

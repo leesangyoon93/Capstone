@@ -15,11 +15,6 @@
         android:theme="@style/AppTheme"
         android:name="com.example.leesangyoon.washerinhands.volley">
 
-        <!--<meta-data android:name="DATABASE" android:value="sugar_example.db" />-->
-        <!--<meta-data android:name="VERSION" android:value="11" />-->
-        <!--<meta-data android:name="QUERY_LOG" android:value="true" />-->
-        <!--<meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.leesangyoon.washerinhands" />-->
-
         <activity android:name=".Login" android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

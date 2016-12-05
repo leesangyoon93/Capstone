@@ -45,8 +45,6 @@ public class frag_GroupInfo extends Fragment {
     Button exitGroup;
     View root;
 
-    int token=0;
-
     canvasView_onlyShow canvasview;
     LinearLayout canvasLayout;
 
