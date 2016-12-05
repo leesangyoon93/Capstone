@@ -68,12 +68,6 @@ public class frag_Home extends Fragment {
 
         isMainText = (TextView)root.findViewById(R.id.text_main);
 
-//        try {
-//            getWasherToServer();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         serverThread = new ServerThread();
         serverThread.start();
 
@@ -186,7 +180,6 @@ public class frag_Home extends Fragment {
                     break;
                 case 1:
                     canvasview.setMachines(machines);
-                    Log.e("sssss","쓰레드 성공!!!!");
                     break;
             }
 

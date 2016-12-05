@@ -28,7 +28,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import java.util.List;
 import java.util.Vector;
 
-// 로고, 탭 색 변경, 게시판 디자인 전체 다 바꾸기
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,33 +81,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         viewPager.setCurrentItem(intent.getIntExtra("fragNum", 0));
-//
+
         registBroadcastReceiver();
         getInstanceIdToken();
 
-//        // 토큰을 보여줄 TextView를 정의
-//        mInformationTextView = (TextView) findViewById(R.id.informationTextView);
-//        mInformationTextView.setVisibility(View.GONE);
-//        // 토큰을 가져오는 동안 인디케이터를 보여줄 ProgressBar를 정의
-//        mRegistrationProgressBar = (ProgressBar) findViewById(R.id.registrationProgressBar);
-//        mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
-//        // 토큰을 가져오는 Button을 정의
-//        mRegistrationButton = (Button) findViewById(R.id.registrationButton);
-//        mRegistrationButton.setOnClickListener(new View.OnClickListener() {
-//            /**
-//             * 버튼을 클릭하면 토큰을 가져오는 getInstanceIdToken() 메소드를 실행한다.
-//             * @param view
-//             */
-//            @Override
-//            public void onClick(View view) {
-//                getInstanceIdToken();
-//            }
-//        });
     }
 
     public void getInstanceIdToken() {
         if (checkPlayServices()) {
-            // Start IntentService to register this application with GCM.
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
         }
@@ -124,13 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 String action = intent.getAction();
 
                 if(action.equals(QuickstartPreferences.REGISTRATION_READY)){
-                    // 액션이 READY일 경우
                 } else if(action.equals(QuickstartPreferences.REGISTRATION_GENERATING)){
-                    // 액션이 GENERATING일 경우
                 } else if(action.equals(QuickstartPreferences.REGISTRATION_COMPLETE)){
-                    // 액션이 COMPLETE일 경우
                     String token = intent.getStringExtra("token");
-                    //Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
                     User.getInstance().setToken(token);
                 }
 
@@ -173,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         backPressCloseHandler.onBackPressed();
     }
 }

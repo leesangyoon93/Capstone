@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,6 +35,7 @@ public class Register extends AppCompatActivity {
     EditText userId, password, userName;
     final String URL = "http://52.41.19.232/register";
     SharedPreferences userSession;
+    LinearLayout main_layout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,17 @@ public class Register extends AppCompatActivity {
         password = (EditText)findViewById(R.id.input_registerPassword);
         userName = (EditText)findViewById(R.id.input_registerUserName);
         registerButton = (Button)findViewById(R.id.submit_register);
+        main_layout = (LinearLayout)findViewById(R.id.register_layout);
+
+        main_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(userId.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(password.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(userName.getWindowToken(), 0);
+            }
+        });
 
         userSession = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
 
@@ -61,7 +75,7 @@ public class Register extends AppCompatActivity {
                         String name = userName.getText().toString();
 
                         try{
-                            userinfoToServer(id,pw,name);
+                            userInfoToServer(id,pw,name);
                         } catch(Exception e){
                             e.printStackTrace();
                         }
@@ -74,9 +88,7 @@ public class Register extends AppCompatActivity {
     }
 
 
-
-
-    private void userinfoToServer(final String id, final String pw, final String name) throws Exception{
+    private void userInfoToServer(final String id, final String pw, final String name) throws Exception{
 
         final ProgressDialog loading = ProgressDialog.show(this, "Loading...", "Please wait...", false, false);
 
@@ -95,16 +107,12 @@ public class Register extends AppCompatActivity {
 
                             if(response.toString().contains("result")){
                                 if(response.getString("result").equals("fail")) {
-                                    //서버연결에 실패하였습니다.
                                     Toast.makeText(Register.this, "알 수 없는 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
                                 } else if(response.getString("result").equals("overlap")){
-                                    //중복된 아이디 입니다.
                                     Toast.makeText(Register.this, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else{
-
-                                //response받아와서 user객체에 넘김
                                 User.getInstance().setUserId(response.getString("userId"));
                                 User.getInstance().setPassword(response.getString("password"));
                                 User.getInstance().setUserName(response.getString("userName"));

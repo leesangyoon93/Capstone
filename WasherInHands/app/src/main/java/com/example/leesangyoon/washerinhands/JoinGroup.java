@@ -74,7 +74,6 @@ public class JoinGroup extends AppCompatActivity implements AdapterView.OnItemCl
 
         final ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
 

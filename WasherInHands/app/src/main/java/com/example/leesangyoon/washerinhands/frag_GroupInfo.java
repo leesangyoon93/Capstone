@@ -45,7 +45,6 @@ public class frag_GroupInfo extends Fragment {
     Button exitGroup;
     View root;
 
-    //alpha,beta 초기화 문제 때문에 존재하는 토큰값
     int token=0;
 
     canvasView_onlyShow canvasview;
@@ -293,7 +292,6 @@ public class frag_GroupInfo extends Fragment {
                         machines.add(machine);
                     }
 
-                    //서버에서 받아오는게 성공한다면 핸들에 1을 보낸다
                     msg.arg1 = 1;
                     handler.sendMessage(msg);
 
@@ -327,7 +325,6 @@ public class frag_GroupInfo extends Fragment {
                     break;
                 case 1:
                     canvasview.setMachines(machines);
-                    Log.e("sssss","쓰레드 성공!!!!");
                     break;
             }
 

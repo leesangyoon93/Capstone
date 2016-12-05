@@ -216,8 +216,6 @@ public class canvasView extends View {
                 }
             }
 
-            //세탁기 지우고 size 0이면 alpha,beta 0으로 만들기
-
             movingMode=false;
             onTrash=false;
             invalidate();
@@ -232,19 +230,6 @@ public class canvasView extends View {
 
         invalidate();
     }
-/*
-    public void removeMachine(Machine machine){
-        for(int i=0; i<machines.size();i++){
-            if(machines.get(i).getModule().equals(machine.getModule())){
-                machines.remove(i);
-                return;
-            }
-            else{
-                //sensorID를 찾을 수 없습니다.
-            }
-        }
-        invalidate();
-    }*/
 
     public List<Machine> getMachines(){
         return machines;

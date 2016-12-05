@@ -44,7 +44,6 @@ public class EditArticle extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
 
@@ -52,7 +51,6 @@ public class EditArticle extends AppCompatActivity {
         path = intent.getStringExtra("path");
         title = (EditText)findViewById(R.id.input_title);
         content = (EditText)findViewById(R.id.input_articleContent);
-//        completeButton = (Button)findViewById(R.id.btn_complete);
 
         content.setText(Article.getInstance().getContent());
         title.setText(Article.getInstance().getTitle());

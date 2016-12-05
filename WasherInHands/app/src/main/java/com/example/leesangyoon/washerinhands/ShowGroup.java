@@ -27,7 +27,6 @@ public class ShowGroup extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(WasherRoom.getInstance().getRoomName());
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);

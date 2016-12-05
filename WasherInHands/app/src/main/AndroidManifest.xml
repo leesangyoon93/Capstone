@@ -15,10 +15,10 @@
         android:theme="@style/AppTheme"
         android:name="com.example.leesangyoon.washerinhands.volley">
 
-        <meta-data android:name="DATABASE" android:value="sugar_example.db" />
-        <meta-data android:name="VERSION" android:value="11" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.leesangyoon.washerinhands" />
+        <!--<meta-data android:name="DATABASE" android:value="sugar_example.db" />-->
+        <!--<meta-data android:name="VERSION" android:value="11" />-->
+        <!--<meta-data android:name="QUERY_LOG" android:value="true" />-->
+        <!--<meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.leesangyoon.washerinhands" />-->
 
         <activity android:name=".Login" android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register"/>
+        <activity android:name=".Register" android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity android:name=".ShowGroup"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".JoinGroup" android:label="그룹검색/가입"/>

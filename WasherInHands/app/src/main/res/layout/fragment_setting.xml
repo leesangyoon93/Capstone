@@ -70,7 +70,7 @@
             android:text="Made by. 조현웅, 이상윤, 장정규, 박진우"
             android:id="@+id/textView"
             android:gravity="bottom|center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="#000" />
 
         <TextView
@@ -79,16 +79,16 @@
             android:text="2016-2 다학제 캡스톤디자인"
             android:id="@+id/textView2"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="#000" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thanks to 강경란 교수님, 이하나 선생님"
+            android:text="Thanks to 강경란 교수님, 이하나 선생님, 조성현"
             android:id="@+id/textView4"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="#000" />
     </LinearLayout>
 

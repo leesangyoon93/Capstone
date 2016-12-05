@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +50,6 @@ public class EditGroup extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
 
@@ -75,6 +75,7 @@ public class EditGroup extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_saveGroup:
                 machines = canvasview.getMachines();
+
                 if(!machines.isEmpty()){
                     try {
                         saveGroupToServer();
@@ -166,7 +167,13 @@ public class EditGroup extends AppCompatActivity {
         String str="";
 
         for(int i=0;i<machines.size();i++){
-            if(i==0){
+            if(machines.size() == 1) {
+                str +=  "[{\"x\":"+machines.get(i).getX()+"," +
+                        "\"y\":"+machines.get(i).getY()+"," +
+                        "\"module\":\""+machines.get(i).getModule()+"\"}]";
+                break;
+            }
+            if(i==0) {
                 str +=  "[{\"x\":"+machines.get(i).getX()+"," +
                         "\"y\":"+machines.get(i).getY()+"," +
                         "\"module\":\""+machines.get(i).getModule()+"\"},";

@@ -34,7 +34,6 @@ public class frag_Profile extends Fragment {
     SharedPreferences userSession;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
-        Log.e("ssss","제발");
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
         changePassword = (Button) root.findViewById(R.id.btn_pwchange);

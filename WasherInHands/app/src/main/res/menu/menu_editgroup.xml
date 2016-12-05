@@ -2,19 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:appproject="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_saveGroup"
-        android:title="저장"
-        appproject:showAsAction="ifRoom"
+        android:id="@+id/menu_addWasher"
+        android:title="세탁기 추가"
         />
     <item
-        android:id="@+id/menu_addWasher"
-        android:title="추가"
-        appproject:showAsAction="ifRoom"
-        />
+        android:id="@+id/menu_saveGroup"
+        android:title="세탁방 저장"/>
+        <!--appproject:showAsAction="ifRoom"-->
+
     <item
         android:id="@+id/menu_deleteGroup"
-        android:title="삭제"
-        appproject:showAsAction="ifRoom"
+        android:title="세탁방 삭제"
         />
     <!--android:icon="@android:drawable/presence_online"-->
 </menu>

@@ -12,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -40,7 +42,7 @@ public class Login extends AppCompatActivity {
     String URL;
 
     SharedPreferences userSession;
-
+    LinearLayout main_layout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,19 @@ public class Login extends AppCompatActivity {
 
         loginButton = (Button) findViewById(R.id.submit_login);
         notRegisterButton = (Button) findViewById(R.id.notRegistered);
+        main_layout = (LinearLayout)findViewById(R.id.login_layout);
+
+        userId = (EditText) findViewById(R.id.input_loginId);
+        password = (EditText) findViewById(R.id.input_loginPassword);
+
+        main_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(userId.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(password.getWindowToken(), 0);
+            }
+        });
 
         userSession = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
 
@@ -73,15 +88,13 @@ public class Login extends AppCompatActivity {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         loginButton.setBackground(getResources().getDrawable(R.drawable.pressed_shape));
-                        userId = (EditText) findViewById(R.id.input_loginId);
-                        password = (EditText) findViewById(R.id.input_loginPassword);
                         String id = userId.getText().toString();
                         String pw = password.getText().toString();
 
                         if(id.isEmpty()){
-                            Toast.makeText(Login.this, "아이디를 쳐주세요.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "아이디를 입력하세요.", Toast.LENGTH_SHORT).show();
                         }else if(pw.isEmpty()){
-                            Toast.makeText(Login.this, "비밀번호를 쳐주세요.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                         }else{
                             try {
                                 userinfoToServer(id, pw);
@@ -137,7 +150,7 @@ public class Login extends AppCompatActivity {
                         if (response.getString("result").equals("fail")) {
                             Toast.makeText(Login.this, "알 수 없는 에러가 발생합니다.", Toast.LENGTH_SHORT).show();
                         }else if(response.getString("result").equals("failId")){
-                            Toast.makeText(Login.this, "존재하지 않는 ID입니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "존재하지 않는 아이디입니다.", Toast.LENGTH_SHORT).show();
                         }else if(response.getString("result").equals("failPw")){
                             Toast.makeText(Login.this, "비밀번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
                         }

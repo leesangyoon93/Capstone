@@ -60,7 +60,6 @@ public class frag_Article extends Fragment implements AdapterView.OnItemClickLis
         mFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //글새로쓰기
                 Intent intent = new Intent(getActivity(), EditArticle.class);
                 intent.putExtra("path", "fromList");
                 startActivity(intent);

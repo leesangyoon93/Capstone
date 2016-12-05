@@ -147,13 +147,16 @@ public class canvasView_onlyShow extends View {
                     } else{
                         working = "사용 가능";
                     }
+                    if(machines.get(machineNum).getTrouble()) {
+                        working = "고장";
+                    }
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("세탁기 상세정보")
                             .setMessage("세탁방 : " + WasherRoom.getInstance().getRoomName() + "\n" +
                                         "세탁기 번호 : " + String.valueOf(machineNum+1) + "번 세탁기\n\n" +
                                     "모듈ID : " + machines.get(machineNum).getModule() + "\n" +
                                     "경과시간 : " + machines.get(machineNum).getRuntTime() + "분\n" +
-                                    "작동여부 : " + working)
+                                    "작동여부 : " + working + "\n\n평균 세탁시간 : 45분")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
