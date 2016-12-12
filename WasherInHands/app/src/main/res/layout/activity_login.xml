@@ -3,12 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:foregroundGravity="center">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        android:layout_gravity="center"
+        android:foregroundGravity="center">
 
         <LinearLayout
             android:orientation="vertical"

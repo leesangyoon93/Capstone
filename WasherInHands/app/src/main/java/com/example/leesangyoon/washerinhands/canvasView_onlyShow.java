@@ -70,8 +70,8 @@ public class canvasView_onlyShow extends View {
         settingMachine.setCanvasSize(canvasWidth, canvasHeight);
 
         MACHINE_SIZE = canvas.getWidth() / 6;
-        if (MACHINE_SIZE > 200) {
-            MACHINE_SIZE = 200;
+        if (MACHINE_SIZE > 100) {
+            MACHINE_SIZE = 100;
         }
         settingMachine.setMACHINE_SIZE(MACHINE_SIZE);
 

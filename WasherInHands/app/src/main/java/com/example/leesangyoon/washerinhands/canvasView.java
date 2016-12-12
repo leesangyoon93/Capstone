@@ -84,8 +84,8 @@ public class canvasView extends View {
         MACHINE_SIZE = canvas.getWidth()/6;
         REMOVE_SIZE = canvas.getWidth()/4;
 
-        if(MACHINE_SIZE > 200){
-            MACHINE_SIZE=200;
+        if(MACHINE_SIZE > 100){
+            MACHINE_SIZE=100;
         }
         if(REMOVE_SIZE > 250){
             REMOVE_SIZE=250;

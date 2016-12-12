@@ -83,10 +83,10 @@ public class frag_Setting extends Fragment implements NumberPicker.OnValueChange
 
     private void show() {
         final Dialog d = new Dialog(getActivity());
-        d.setTitle("NumberPicker");
         d.setContentView(R.layout.dialog);
         Button b1 = (Button) d.findViewById(R.id.button1);
         Button b2 = (Button) d.findViewById(R.id.button2);
+
         final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
         np.clearFocus();
         np.setMaxValue(100);

@@ -94,7 +94,6 @@ public class frag_Home extends Fragment {
 
 
     private void getWasherToServer() throws Exception{
-        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", false, false);
 
         String URL= String.format("http://52.41.19.232/getWasher?roomName=%s",
                 URLEncoder.encode(User.getInstance().getMainRoomName(), "utf-8"));
@@ -103,7 +102,6 @@ public class frag_Home extends Fragment {
 
             @Override
             public void onResponse(JSONArray response) {
-                loading.dismiss();
                 machines.clear();
 
                 Message msg = handler.obtainMessage();
